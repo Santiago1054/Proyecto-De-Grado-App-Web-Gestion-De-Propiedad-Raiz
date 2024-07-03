@@ -1,3 +1,11 @@
+## Table of Contents
+
+
+- [Keywords](#keywords)
+- [MERN](#mern)
+- [JWT](#jwt)
+- [Installation](#installation)
+- [Deployment](#deployment)
 # MERN Stack CRUD with JWT
 
 
@@ -27,31 +35,22 @@ JSON Web Tokens are a good way of securely transmitting information between part
 
 
 
-## Table of Contents
 
-- [Installation](#installation)
-- [Usage](#usage)
-- [Features](#features)
-- [Contributing](#contributing)
-- [License](#license)
-- [Contact](#contact)
 
 ## Installation
 
 Step-by-step instructions on how to get the development environment running.
 
 
+
+
+## Deployment
+
+```sh
+git clone https://github.com/Santiago1054/MERN-Stack-CRUD-with-JWT.git
+```
+
+> You need to have a Mongodb database running
 (https://www.oracle.com/cis/database/mern-stack/#:~:text=MERN%20is%20an%20acronym%20for,scalable%20and%20interactive%20web%20applications.)
 
 https://jwt.io/introduction
-
-### Deployment
-```bash
-# Clone the repository
-git clone https://github.com/Santiago1054/MERN-Stack-CRUD-with-JWT
-
-# Change directory into the project folder
-cd yourproject
-
-# Install dependencies
-npm install

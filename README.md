@@ -1,3 +1,6 @@
+
+[![An old rock in the desert](/assets/images/shiprock.jpg "Shiprock, New Mexico by Beau Rogers")](https://www.boardinfinity.com/blog/content/images/2023/01/Mern.png)
+
 ## Table of Contents
 
 

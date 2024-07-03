@@ -49,6 +49,9 @@ git clone https://github.com/Santiago1054/MERN-Stack-CRUD-with-JWT.git
 ```
 > Step 2
 Go to  NPM SCRIPTS
+> 
+![Screenshot 2024-07-03 130954](https://github.com/Santiago1054/MERN-Stack-CRUD-with-JWT/assets/170820106/053d246a-018b-47ed-9195-16520b02f5e8)
+
 
 
 > You need to have a Mongodb database running

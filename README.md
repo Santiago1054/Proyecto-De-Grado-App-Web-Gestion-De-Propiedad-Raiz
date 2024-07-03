@@ -35,22 +35,21 @@ This is the most common scenario for using JWT. Once the user is logged in, each
 ### Information Exchange: 
 JSON Web Tokens are a good way of securely transmitting information between parties. Because JWTs can be signed—for example, using public/private key pairs—you can be sure the senders are who they say they are. Additionally, as the signature is calculated using the header and the payload, you can also verify that the content hasn't been tampered with.
 
-
+## Project preview
+![776shots_so](https://github.com/Santiago1054/MERN-Stack-CRUD-with-JWT/assets/170820106/002654a4-9703-41a9-bdec-3393ccf8556d)
 
 
 
 ## Installation
 
 Step-by-step instructions on how to get the development environment running.
-
-
-
-
-## Deployment
-
+> Step 1
 ```sh
 git clone https://github.com/Santiago1054/MERN-Stack-CRUD-with-JWT.git
 ```
+> Step 2
+Go to  NPM SCRIPTS
+
 
 > You need to have a Mongodb database running
 (https://www.oracle.com/cis/database/mern-stack/#:~:text=MERN%20is%20an%20acronym%20for,scalable%20and%20interactive%20web%20applications.)

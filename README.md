@@ -47,12 +47,24 @@ Step-by-step instructions on how to get the development environment running.
 ```sh
 git clone https://github.com/Santiago1054/MERN-Stack-CRUD-with-JWT.git
 ```
-> Step 2
-Go to  NPM SCRIPTS
+> Step 2 Go to  NPM SCRIPTS
 > 
 ![Screenshot 2024-07-03 130954](https://github.com/Santiago1054/MERN-Stack-CRUD-with-JWT/assets/170820106/053d246a-018b-47ed-9195-16520b02f5e8)
-
-
+> Step 3 Click on install dependencies from package
+> 
+![Screenshot 2024-07-03 131325](https://github.com/Santiago1054/MERN-Stack-CRUD-with-JWT/assets/170820106/168f2afd-3ac7-4563-aa7c-66e2fd886dae)
+> NOTE!!! If you do not open both terminals separately and in their locations it may cause issues
+> 
+> Important information! Back-end it's located in src folder by the other hand, front-end it's located in agent folder
+> 
+>Step 4 The project use two different terminals the first one it's use to run the back-end
+```sh
+npm run dev
+```
+>Step 5 and the other terminal it's use to run the front-end
+```sh
+npm run dev
+```
 
 > You need to have a Mongodb database running
 (https://www.oracle.com/cis/database/mern-stack/#:~:text=MERN%20is%20an%20acronym%20for,scalable%20and%20interactive%20web%20applications.)

@@ -1,5 +1,4 @@
-
-[![An old rock in the desert](/assets/images/shiprock.jpg "Shiprock, New Mexico by Beau Rogers")](https://www.boardinfinity.com/blog/content/images/2023/01/Mern.png)
+![Blog-Article-MERN-Stack](https://github.com/Santiago1054/MERN-Stack-CRUD-with-JWT/assets/170820106/4d5d033c-85b8-4f2f-8aae-05e1e1488394)
 
 ## Table of Contents
 

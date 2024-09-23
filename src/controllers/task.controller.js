@@ -30,6 +30,8 @@ export const getTasks = async (req, res) => {
 export const createTask = async (req, res) => {
   try {
     const {
+      doc,
+      imagen,
       departamento,
       municipio,
       barrio,
@@ -45,6 +47,8 @@ export const createTask = async (req, res) => {
     } = req.body;
     console.log(req.user);
     const newTask = new Task({
+      doc,
+      imagen,
       departamento,
       municipio,
       barrio,

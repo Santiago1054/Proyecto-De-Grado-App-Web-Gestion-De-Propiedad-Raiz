@@ -9,6 +9,8 @@ import HomePage from "./pages/HomePage"
 import ProtectedRoute from "./ProtectedRoute"
 import { TaskProvider } from "./context/TaskContext"
 import Navbar from "./components/Navbar"
+import { TaskFilter } from "./components/TaskCard"
+
 function App() {
   return (
     <AuthProvider>
@@ -16,6 +18,7 @@ function App() {
         <BrowserRouter>
           <main className="container mx-auto px-10">
             <Navbar />
+            <TaskFilter />
             <Routes>
               <Route path="/" element={<HomePage />} />
               <Route path="/login" element={<LoginPage />} />

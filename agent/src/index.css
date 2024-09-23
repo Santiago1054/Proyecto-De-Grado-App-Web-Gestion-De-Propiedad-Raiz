@@ -3,8 +3,8 @@
 @tailwind utilities;
 
 body {
-  background:linear-gradient(to bottom, rgb(15, 41, 66), rgb(0, 0, 0) 100%);
+  background: -webkit-linear-gradient(90deg, #0b0d0f, #1a1d21, #292e36);
+  background: linear-gradient(90deg, #0b0d0f, #1a1d21, #292e36);
+
   color: white;
-  
-  
 }

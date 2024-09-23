@@ -2,10 +2,6 @@ import mongoose from "mongoose";
 
 const taskSchema = new mongoose.Schema(
   {
-    img: {
-      type: String,
-      required: false,
-    },
     departamento: {
       type: String,
       required: true,
@@ -51,6 +47,14 @@ const taskSchema = new mongoose.Schema(
       required: true,
     },
     inquilinosEmail: {
+      type: String,
+      required: true,
+    },
+    imagen: {
+      type: String,
+      required: true,
+    },
+    doc: {
       type: String,
       required: true,
     },

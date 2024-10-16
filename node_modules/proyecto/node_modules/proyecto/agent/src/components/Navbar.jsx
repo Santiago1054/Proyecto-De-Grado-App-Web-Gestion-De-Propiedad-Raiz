@@ -13,12 +13,12 @@ La barra de navegacion tiene autentificacion de inicio sesion, pero algunas func
 Variable relacionada: isAuthenticated
 -------------------------------------
 */
-function Navbar() {
+function Navbar() {                                                 
     const { isAuthenticated, logout, user } = useAuth()
     return (
-        <nav className="bg-custom-gradient my-2  flex justify-between py-7 px-20 rounded-lg shadow-lg shadow-black ">
+        <nav className=" w-full bg-form my- border border-backgroundColor  flex justify-between py-7 px-20 rounded-md shadow-lg shadow-black ">
             <Link to='/' value>
-                <h1 className=" italic text-white text-2xl shadow-lg shadow-white font-bold  px-9  py-2 rounded-md cursor-pointer hover:opacity-80 transition-opacity" >Pagina principal</h1>
+                <h1 className="font-custom bg-backgroundColor text-form text-3xl border border-backgroundColor  font-extrabold  px-9  py-2 rounded-md cursor-pointer hover:opacity-80 transition-opacity" >Pagina principal</h1>
             </Link>
 
             <ul className="flex gap-x-2">
@@ -54,17 +54,17 @@ ________________________________________________________________________________
 -------------------------------------
 */
                     <>
-                        <li className=' font-sans text-2xl font-bold px-20 py-0  '>
+                        <li className=' font-custom text-2xl font-extrabold px-20 py-0 text-backgroundColor '>
                             ¡Hola, {user.username}! ¡Qué gusto verte!  😁
                         </li>
                         <li>
                             <Link to='/tasks/new'
-                                className="bg-custom-gradient-two shadow-md shadow-black px-3 py-2 rounded-sm text-black cursor-pointer   hover:opacity-80 delay-60">
+                                className="font-custom font-extrabold bg-form  shadow-md shadow-black px-4 py-4 rounded-md text-backgroundColor border border-backgroundColor cursor-pointer   hover:bg-blue-600 hover:text-white">
                                 Agregar tarjeta
                             </Link>
                         </li>
                         <li>
-                            <Link to='/' className="bg-white shadow-md shadow-black px-3 py-2 rounded-sm text-black cursor-pointer   hover:opacity-80 delay-60" onClick={() => {
+                            <Link to='/' className=" font-custom  font-extrabold bg-backgroundColor shadow-md shadow-black px-4 py-4 rounded-md text-form  border border-backgroundColor cursor-pointer    hover:bg-red-600 hover:text-backgroundColor hover:border-backgroundColor" onClick={() => {
                                 logout()
                             }}>
                                 Salir
@@ -85,13 +85,13 @@ La barra de navegacion tiene autentificacion de inicio sesion, pero algunas func
                     <>
                         <li>
                             <Link to='/login'
-                                className="font-medium bg-custom-gradient-two px-3 py-2 rounded-sm text-black cursor-pointer   hover:opacity-80 delay-60">
+                                className="font-custom font-extrabold bg-form  shadow-md shadow-black px-4 py-4 rounded-md text-backgroundColor border border-backgroundColor cursor-pointer   hover:bg-backgroundColor hover:text-form">
                                 Inicio Sesion
                             </Link>
                         </li>
                         <li>
                             <Link to='/register'
-                                className="font-medium bg-white px-3 py-2 rounded-sm text-black cursor-pointer   hover:opacity-80 delay-60">
+                                className="font-custom font-extrabold bg-form  shadow-md shadow-black px-4 py-4 rounded-md text-backgroundColor border border-backgroundColor cursor-pointer   hover:bg-green-400 hover:text-backgroundColor">
                                 Registrate
                             </Link>
                         </li>

@@ -9,8 +9,10 @@ function RegisterPage() {
         register,
         handleSubmit,
         formState: { errors } } = useForm()
+
     const { singup, isAuthenticated, errors: registerErrors } = useAuth()
     const navigate = useNavigate()
+    
     useEffect(() => {
         if (isAuthenticated) navigate("/tasks")
     }, [isAuthenticated])
@@ -22,7 +24,7 @@ function RegisterPage() {
 
     return (
         <div className='flex h-[calc(100vh-100px)] items-center justify-center'>
-            <div className='bg-custom-gradient-two w-full max-w-2xl p-10 rounded-md'>
+            <div className='bg-custom-gradient-two w-full max-w-2xl p-10 rounded-md border border-backgroundColor'>
                 {
                     registerErrors.map((error, i) => (
                         <div className='bg-red-500 p-2 text-white' key={i}>
@@ -54,7 +56,7 @@ function RegisterPage() {
                     <br />
                     <br />
                     <div className='flex justify-center'>
-                        <button type="submit" className="font-medium bg-custom-gradient text-white px-5 py-2 rounded-md justify-center cursor-pointer   hover:opacity-80 delay-60">
+                        <button type="submit" className="font-extrabold  text-backgroundColor px-5 py-2 rounded-md justify-center border border-backgroundColor cursor-pointer   hover:bg-backgroundColor hover:text-form">
                             Registrarse
                         </button>
                     </div>

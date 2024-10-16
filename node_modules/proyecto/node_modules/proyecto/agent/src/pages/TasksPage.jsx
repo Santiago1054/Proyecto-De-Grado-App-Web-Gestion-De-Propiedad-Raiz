@@ -11,7 +11,7 @@ function TasksPage() {
 
 
     if (tasks.length == 0) return (<Link to='/tasks/new' className=' font-sans text-2xl font-bold flex h-[calc(100vh-300px)] items-center justify-center cursor-pointer   hover:opacity-80 delay-60'>¡Oops 😱! Parece que no tienes propiedades aún. ¡Vamos a arreglar eso!  crea una nueva con estilo!🎉🎉.</Link>)
-    return <div className="m- "><div className="grid grid-rows-3 gap-3 gap-y-20 ">
+    return <div className="m-24"><div className="grid grid-rows-3 gap-3 gap-y-20 ">
 
         {
             tasks.map(task => (

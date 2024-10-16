@@ -31,10 +31,14 @@ export function TaskProvider({ children }) {
 
 
     const createTask = async (task) => {
-
-        const res = await createTaskRequest(task)
-        console.log(res)
-    }
+        try {
+            const res = await createTaskRequest(task);
+            console.log("Resultado de la solicitud:", res);
+            
+        } catch (error) {
+            console.error("Error en createTask:", error.message, error.stack);
+        }
+    };
 
     const deleteTask = async (id) => {
         try {

@@ -19,7 +19,7 @@ function LoginPage() {
     }, [isAuthenticated])
     return (
         <div className='flex h-[calc(100vh-100px)] items-center justify-center '>
-            <div className='bg-custom-gradient-two max-w-xl w-full p-10 rounded-md'>
+            <div className='bg-custom-gradient-two max-w-xl w-full p-10 rounded-md border border-backgroundColor'>
                 {
                     signinErrors.map((error, i) => (
                         <div className='bg-red-500 p-2 text-white text-center' key={i}>
@@ -27,7 +27,7 @@ function LoginPage() {
                         </div>
                     ))
                 }
-                <h1 className='text-3xl font-bold text-black'>Bienvenido 😁🎉🎉</h1>
+                <h1 className='text-3xl font-bold text-backgroundColor'>Bienvenido 😁🎉🎉</h1>
                 <br />
                 <form onSubmit={onSubmit} >
                     <input type="email" {...register("email", { required: true })}
@@ -44,14 +44,14 @@ function LoginPage() {
                     <br />
 
                     <div className='flex justify-center'>
-                        <button type="submit" className="font-medium bg-custom-gradient text-white px-5 py-2 rounded-md justify-center cursor-pointer   hover:opacity-80 delay-60">
+                        <button type="submit" className="font-extrabold  text-backgroundColor px-5 py-2 rounded-md justify-center border border-backgroundColor cursor-pointer   hover:bg-backgroundColor hover:text-form">
                             Ingresar
                         </button>
                     </div>
                 </form>
                 <br />
                 <br />
-                <p className='font-medium flex gap-x-2 justify-between text-black'>
+                <p className='font-medium flex gap-x-2 justify-between text-backgroundColor'>
                     ¿¡No te has registrado!? ¡Qué estás esperando! 😱<Link to="/register" className='font-medium text-black cursor-pointer   hover:text-sky-500'>Registrate aqui</Link>
                 </p>
             </div>

@@ -14,10 +14,7 @@ app.use(
     credentials: true,
   })
 );
-app.get("*", (req, res) => {
-  console.log(path.resolve("agent", "dist", "index.html") );
-  res.sendFile(path.resolve("agent", "dist", "index.html"));
-});
+
 app.use(morgan("dev"));
 app.use(express.json());
 app.use(cookieParser());

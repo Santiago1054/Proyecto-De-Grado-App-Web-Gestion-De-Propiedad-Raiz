@@ -6,7 +6,7 @@
   "type": "module",
   "scripts": {
     "dev": "nodemon src/index.js",
-    "build": "react-scripts build"
+    "build": "esbuild src/index.js --bundle --outdir=public --platform=node"
   },
   "keywords": [],
   "author": "",

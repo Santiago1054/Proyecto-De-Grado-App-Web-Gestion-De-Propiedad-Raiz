@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 export const connectDB = async () => {
   try {
     await mongoose.connect(
-      "mongodb://127.0.0.1:27017/?directConnection=true&serverSelectionTimeoutMS=2000&appName=mongosh+2.2.5"
+      "mongodb://mongo:OIYjCnUzKKWXvOmzzTxesjRVdCNmkoeA@autorack.proxy.rlwy.net:58949"
     );
     console.log("-> Base de datos conectada");
   } catch (error) {

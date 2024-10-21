@@ -6,7 +6,7 @@
   "type": "module",
   "scripts": {
     "dev": "nodemon src/index.js",
-    "build": "npm run build"
+    "build": "esbuild src/index.js --bundle --outdir=dist --platform=node"
   },
   "keywords": [],
   "author": "",
@@ -28,6 +28,7 @@
     "zod": "^3.23.4"
   },
   "devDependencies": {
+    "esbuild": "^0.24.0",
     "nodemon": "^3.1.0"
   }
 }

@@ -5,8 +5,7 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "dev": "nodemon src/index.js",
-    "build": "esbuild src/index.js --bundle --outdir=dist --platform=node"
+    "dev": "nodemon src/index.js"
   },
   "keywords": [],
   "author": "",

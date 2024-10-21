@@ -18,7 +18,7 @@ function Navbar() {
     return (
         <nav className=" w-full bg-form my- border border-backgroundColor  flex justify-between py-7 px-20 rounded-md shadow-lg shadow-black ">
             <Link to='/' value>
-                <h1 className="font-custom bg-backgroundColor text-form text-3xl border border-backgroundColor  font-extrabold  px-9  py-2 rounded-md cursor-pointer hover:opacity-80 transition-opacity" >Pagina principal</h1>
+                    <h1 className="font-custom  bg-backgroundColor text-form text-8xl   font-extrabold  px-9  py-2 rounded-md cursor-pointer hover:opacity-90 transition-opacity hover:bg-form hover:text-backgroundColor" >+ HEGEOR   ❏</h1>
             </Link>
 
             <ul className="flex gap-x-2">

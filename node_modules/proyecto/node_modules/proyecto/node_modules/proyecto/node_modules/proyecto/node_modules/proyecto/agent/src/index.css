@@ -1,9 +1,19 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+@import url(https://db.onlinewebfonts.com/c/6f647d2fb27f7ad2f727d5286bc1bed1?family=Quotes+Caps+W00+Regular);
 
 body {
   background: rgb(223, 237, 243);
 
   color: white;
+}
+@font-face {
+  font-family: "Quotes Caps W00 Regular";
+  src: url("https://db.onlinewebfonts.com/t/6f647d2fb27f7ad2f727d5286bc1bed1.eot");
+  src: url("https://db.onlinewebfonts.com/t/6f647d2fb27f7ad2f727d5286bc1bed1.eot?#iefix")format("embedded-opentype"),
+  url("https://db.onlinewebfonts.com/t/6f647d2fb27f7ad2f727d5286bc1bed1.woff2")format("woff2"),
+  url("https://db.onlinewebfonts.com/t/6f647d2fb27f7ad2f727d5286bc1bed1.woff")format("woff"),
+  url("https://db.onlinewebfonts.com/t/6f647d2fb27f7ad2f727d5286bc1bed1.ttf")format("truetype"),
+  url("https://db.onlinewebfonts.com/t/6f647d2fb27f7ad2f727d5286bc1bed1.svg#Quotes Caps W00 Regular")format("svg");
 }

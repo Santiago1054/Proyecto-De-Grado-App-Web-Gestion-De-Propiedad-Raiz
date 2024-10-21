@@ -17,8 +17,10 @@ export default {
         form: "rgb(190, 202, 212)", // Add your RGB value here
       },
       fontFamily: {
-        custom: ["CustomFont", "sans-serif"],
+        custom: "Quotes Caps W00 Regular",
+        
       },
+     
     },
   },
   plugins: [],

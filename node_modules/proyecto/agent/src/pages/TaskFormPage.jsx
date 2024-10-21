@@ -10,6 +10,7 @@ import { getFirestore } from "firebase/firestore";
 import { doc, updateDoc } from "firebase/firestore";
 import { collection, addDoc, getDocs } from "firebase/firestore";
 import { setDoc } from "firebase/firestore";
+import imageCompression from 'browser-image-compression'; // Importar la librería de compresión
 
 
 
@@ -71,16 +72,31 @@ function TaskFormPage() {
     const handleImageUpload = async (e) => {
 
         const file = e.target.files[0];
-        setImage(file);
+    if (!file) return;
 
-        // Upload image to Firebase Storage
-        if (file) {
-            const storageRef = ref(storage, `images/${file.name}`);
-            await uploadBytes(storageRef, file);
-            const imageUrl = await getDownloadURL(storageRef);
-            setImageUrl(imageUrl); // Guardar la URL de la imagen en el estado imageUrl
+    try {
+      // Opciones de compresión
+      const opciones = {
+        maxSizeMB: 0.5, // Tamaño máximo 1MB
+        maxWidthOrHeight: 800, // Máximo 800px en el lado más largo
+        useWebWorker: true, // Mejora de rendimiento
+      };
 
-        }
+      // Comprimir la imagen
+      const imagenComprimida = await imageCompression(file, opciones);
+
+      // Subir la imagen comprimida a Firebase Storage
+      const storageRef = ref(storage, `images/${imagenComprimida.name}`);
+      await uploadBytes(storageRef, imagenComprimida);
+
+      // Obtener la URL de descarga de Firebase
+      const url = await getDownloadURL(storageRef);
+      setImageUrl(url); // Guardar la URL en el estado
+
+      console.log('Imagen subida correctamente:', url);
+    } catch (error) {
+      console.error('Error al comprimir o subir la imagen:', error);
+    }
     };
     const handleDocUpload = async (e) => {
 

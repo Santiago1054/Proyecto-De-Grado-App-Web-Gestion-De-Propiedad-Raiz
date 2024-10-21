@@ -4,15 +4,20 @@ import cookieParser from "cookie-parser";
 import authRoutes from "./routes/auth.routes.js";
 import taskRoutes from "./routes/task.routes.js";
 import cors from "cors";
+import { FRONTEND_URL } from "./config.js";
 
 const app = express();
 
 app.use(
   cors({
-    origin: "http://localhost:5173",
+    origin: FRONTEND_URL,
     credentials: true,
   })
 );
+app.get("*", (req, res) => {
+  console.log(path.resolve("agent", "dist", "index.html") );
+  res.sendFile(path.resolve("agent", "dist", "index.html"));
+});
 app.use(morgan("dev"));
 app.use(express.json());
 app.use(cookieParser());

@@ -12,8 +12,8 @@ const app = express();
 
 app.use(
   cors({
-    credentials: true,
-    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+    credentials: true, // Esto permite el envío de cookies\
     origin: FRONTEND_URL,
   })
 );

@@ -15,14 +15,7 @@ import Task from "../models/task.model.js";
 }*/
 
 export const getTasks = async (req, res) => {
-  const token = await createAccessToken({ id: userFound._id });
   try {
-    res.cookie('token', token, {
-      httpOnly: true,    // La cookie no es accesible desde JavaScript en el cliente
-      secure: process.env.NODE_ENV === 'production', // Usar solo en HTTPS en producción
-      sameSite: 'lax',   // O 'none' si frontend y backend están en dominios diferentes
-      maxAge: 24 * 60 * 60 * 1000, // 1 día
-    });
     const tasks = await Task.find({
       user: req.user.id,
     }).populate("user");

@@ -15,6 +15,7 @@ import Task from "../models/task.model.js";
 }*/
 
 export const getTasks = async (req, res) => {
+  const token = await createAccessToken({ id: userFound._id });
   try {
     res.cookie('token', token, {
       httpOnly: true,    // La cookie no es accesible desde JavaScript en el cliente

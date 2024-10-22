@@ -48,10 +48,10 @@ export const login = async (req, res) => {
     const token = await createAccessToken({ id: userFound._id });
 
     res.cookie('token', token, {
-      httpOnly: true, // Evita que el frontend acceda a la cookie
-      secure: true, // Usar solo en HTTPS (quita esto para desarrollo)
-      sameSite: 'lax', // Controla cuándo enviar la cookie (ajústalo según tus necesidades)
-      maxAge: 24 * 60 * 60 * 1000, // Expira en 1 día
+      httpOnly: true,    // La cookie no es accesible desde JavaScript en el cliente
+      secure: process.env.NODE_ENV === 'production', // Usar solo en HTTPS en producción
+      sameSite: 'lax',   // O 'none' si frontend y backend están en dominios diferentes
+      maxAge: 24 * 60 * 60 * 1000, // 1 día
     });
     res.json({
       id: userFound._id,

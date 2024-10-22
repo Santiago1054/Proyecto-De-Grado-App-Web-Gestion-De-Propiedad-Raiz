@@ -11,11 +11,11 @@ const app = express();
 app.use(
   cors({
     origin: FRONTEND_URL,
-    methods: ['GET', 'POST', 'PUT', 'DELETE'],
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
     credentials: true
   })
 );
-
+app.options('*', cors()); // Manejar preflight requests con OPTIONS
 app.use(morgan("dev"));
 app.use(express.json());
 app.use(cookieParser());

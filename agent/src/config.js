@@ -1,1 +1,1 @@
-export const API_URL = import.meta.env.VITE_API_URL|| "https://mern-stack-crud-with-jwt.onrender.com/api";
+export const API_URL = import.meta.env.VITE_API_URL|| "http://localhost:4000/api";

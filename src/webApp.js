@@ -27,10 +27,7 @@ if (process.env.NODE_ENV === "production") {
   const path = await import("path");
   app.use(express.static("agent/dist"));
 
-  app.get("*", (req, res) => {
-    console.log(path.resolve("agent", "dist", "index.html") );
-    res.sendFile(path.resolve("agent", "dist", "index.html"));
-  });
+
 }
 
 export default app;

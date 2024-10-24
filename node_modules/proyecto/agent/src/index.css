@@ -4,9 +4,16 @@
 @import url(https://db.onlinewebfonts.com/c/6f647d2fb27f7ad2f727d5286bc1bed1?family=Quotes+Caps+W00+Regular);
 
 body {
-  background: rgb(223, 237, 243);
+  background: linear-gradient(to bottom,#F5F5F5 50%, #dfe9ff 50%);
+  height: auto; /* Para que cubra toda la pantalla */
+  margin: 12;
+  
 
   color: white;
+}
+.background{
+  background: rgb(0, 0, 0);
+  position: absolute;
 }
 @font-face {
   font-family: "Quotes Caps W00 Regular";

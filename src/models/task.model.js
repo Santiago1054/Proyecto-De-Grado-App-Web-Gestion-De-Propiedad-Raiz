@@ -52,11 +52,11 @@ const taskSchema = new mongoose.Schema(
     },
     imagen: {
       type: String,
-      required: true,
+      required: false,
     },
     doc: {
       type: String,
-      required: true,
+      required: false,
     },
     user: {
       type: mongoose.Schema.Types.ObjectId,

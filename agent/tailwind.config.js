@@ -13,11 +13,12 @@ export default {
       },
       colors: {
         customTeal: "linear-gradient(90deg, #fffdd0,#f5f5dc,#d2b48c)", // Add your RGB value here
-        backgroundColor: "rgb(33, 33, 33)",
-        form: "rgb(190, 202, 212)", // Add your RGB value here
+        backgroundColor: "rgb(255, 255, 255)",
+        form: "rgb(33, 33, 33)", // Add your RGB value here
       },
       fontFamily: {
         custom: "Quotes Caps W00 Regular",
+        
         
       },
      

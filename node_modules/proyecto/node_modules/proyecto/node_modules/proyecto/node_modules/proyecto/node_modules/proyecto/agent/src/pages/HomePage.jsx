@@ -7,15 +7,10 @@ function HomePage() {
     return (
         <>
 
-
-
-
-
-
-            <h1 class="mb-4 text-4xl font-extrabold leading-none tracking-tight text-black md:text-5xl lg:text-7xl">El <span class="text-transparent bg-clip-text bg-gradient-to-r to-blue-800 from-blue-600">control</span> empieza con una buena <span class="text-transparent bg-clip-text bg-gradient-to-r to-blue-800 from-blue-600">gestión.</span></h1>
-            <h1 class="mb-4 text-3xl font-extrabold text-gray-900 md:text-5xl lg:text-7xl text-center"> con <span class="text-transparent bg-clip-text bg-gradient-to-r to-blue-800 from-blue-600">+ HEGEOR   ❏</span>,  ¡simplificas!</h1>
+            <h1 class="mb-4 text-4xl font-extrabold leading-none tracking-tight text-black md:text-5xl lg:text-3xl text-center">El <span class="text-transparent bg-clip-text bg-gradient-to-r to-blue-800 from-blue-600">control</span> empieza con una buena <span class="text-transparent bg-clip-text bg-gradient-to-r to-blue-800 from-blue-600">gestión.</span></h1>
+            <h1 class="mb-4 text-3xl font-extrabold text-gray-900 md:text-5xl lg:text-6xl text-center"> con <span class="text-transparent bg-clip-text bg-gradient-to-r to-blue-800 from-blue-600">+ EASIFY ❏</span>,  ¡simplificas!</h1>
             <br />
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 ">
+            <div class=" grid grid-cols-2 md:grid-cols-4 gap-4 scale-75 ">
                 <div class="grid gap-4">
                     <div>
                         <img class="h-auto max-w-full rounded-lg" src="https://cdn.pixabay.com/photo/2020/04/21/22/22/background-5074889_640.jpg" alt="" />

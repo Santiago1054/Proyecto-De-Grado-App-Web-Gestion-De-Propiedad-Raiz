@@ -24,7 +24,7 @@ function RegisterPage() {
 
     return (
         <div className='flex h-[calc(100vh-100px)] items-center justify-center'>
-            <div className='bg-custom-gradient-two w-full max-w-2xl p-10 rounded-md border border-backgroundColor'>
+            <div className='bg-white w-full max-w-2xl p-10 rounded-md  outline outline-2 outline-blue-500 shadow-2xl shadow-sky-500'>
                 {
                     registerErrors.map((error, i) => (
                         <div className='bg-red-500 p-2 text-white' key={i}>
@@ -41,22 +41,22 @@ function RegisterPage() {
                         className="w-full bg-white text-black px-4 py-2 rounded-md my-2"
                         placeholder='Nombre de usuario'
                     />
-                    {errors.username && (<p className='text-red-500'>Username is required</p>)}
+                    {errors.username && (<p className='text-red-500'>Digita un nombre de usuario</p>)}
 
                     <input type="email" {...register("email", { required: true })}
                         className="w-full bg-white text-black px-4 py-2 rounded-md my-2"
                         placeholder='Correo'
                     />
-                    {errors.email && (<p className='text-red-500'>Email is required</p>)}
+                    {errors.email && (<p className='text-red-500'>Digita una dirección de correo electrónico.</p>)}
                     <input type="password" {...register("password", { required: true })}
                         className="w-full bg-white text-black px-4 py-2 rounded-md my-2"
                         placeholder='Contraseña'
                     />
-                    {errors.password && (<p className='text-red-500'>Password is required</p>)}
+                    {errors.password && (<p className='text-red-500'>Digita una contraseña</p>)}
                     <br />
                     <br />
                     <div className='flex justify-center'>
-                        <button type="submit" className="font-extrabold  text-backgroundColor px-5 py-2 rounded-md justify-center border border-backgroundColor cursor-pointer   hover:bg-backgroundColor hover:text-form">
+                        <button type="submit" className="font-extrabold  text-form px-5 py-2 rounded-md justify-center border border-form cursor-pointer   hover:bg-form hover:text-white duration-200">
                             Registrarse
                         </button>
                     </div>

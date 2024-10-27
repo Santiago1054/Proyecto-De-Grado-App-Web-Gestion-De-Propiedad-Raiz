@@ -30,6 +30,7 @@ export const getTasks = async (req, res) => {
 export const createTask = async (req, res) => {
   try {
     const {
+      certify,
       doc,
       imagen,
       departamento,
@@ -47,6 +48,7 @@ export const createTask = async (req, res) => {
     } = req.body;
     console.log(req.user);
     const newTask = new Task({
+      certify,
       doc,
       imagen,
       departamento,

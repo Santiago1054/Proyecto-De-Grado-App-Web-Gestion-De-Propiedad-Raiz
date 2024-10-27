@@ -1,7 +1,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-@import url(https://db.onlinewebfonts.com/c/6f647d2fb27f7ad2f727d5286bc1bed1?family=Quotes+Caps+W00+Regular);
+
 
 body {
   background: linear-gradient(to bottom,#F5F5F5 50%, #dfe9ff 50%);
@@ -15,12 +15,9 @@ body {
   background: rgb(0, 0, 0);
   position: absolute;
 }
-@font-face {
-  font-family: "Quotes Caps W00 Regular";
-  src: url("https://db.onlinewebfonts.com/t/6f647d2fb27f7ad2f727d5286bc1bed1.eot");
-  src: url("https://db.onlinewebfonts.com/t/6f647d2fb27f7ad2f727d5286bc1bed1.eot?#iefix")format("embedded-opentype"),
-  url("https://db.onlinewebfonts.com/t/6f647d2fb27f7ad2f727d5286bc1bed1.woff2")format("woff2"),
-  url("https://db.onlinewebfonts.com/t/6f647d2fb27f7ad2f727d5286bc1bed1.woff")format("woff"),
-  url("https://db.onlinewebfonts.com/t/6f647d2fb27f7ad2f727d5286bc1bed1.ttf")format("truetype"),
-  url("https://db.onlinewebfonts.com/t/6f647d2fb27f7ad2f727d5286bc1bed1.svg#Quotes Caps W00 Regular")format("svg");
+
+iframe {
+  transform: translateZ(0); /* Trigger GPU acceleration */
+  backface-visibility: hidden; /* Prevent blurring */
+  will-change: transform; /* Optimize for better rendering */
 }

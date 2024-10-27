@@ -1,14 +1,44 @@
 import { useTasks } from "../context/TaskContext"
-import mongoose from 'mongoose';
+
 import { Link } from 'react-router-dom'
-import { useEffect, useState } from "react"
-import TasksPage from "../pages/TasksPage"
+import { useState } from "react"
+
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from "../context/AuthContext"
-import { connectDB } from "../../../src/db";
-var results
 
-export function TaskFilter({ task }) {
+
+
+
+var results
+function TaskDirection({ task }) {
+    const handleClick = () => {
+        // Aquí enviamos el valor de la dirección al padre o contexto
+        results = task.direccionHogar
+        console.log(results)
+    };
+
+    return (
+        <><div>
+            <br></br>
+
+
+
+            <button
+                type="button"
+                className=" py-2 px-4 ms-2 text-sm font-medium text-gray-900 focus:outline-none bg-form rounded-lg border border-backgroundColor  hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700  dark:text-backgroundColor dark:border-backgroundColor dark:hover:text-form dark:hover:bg-backgroundColor "
+                onClick={handleClick}
+            >
+                {task.municipio + ': ' + task.barrio + ', ' + task.direccionHogar}
+            </button></div></>
+    );
+
+
+
+}
+
+
+
+export function TaskFilter({  }) {
     /*
     ---------------------
     Buscador de tarjetas
@@ -28,9 +58,15 @@ export function TaskFilter({ task }) {
     // Guarda el valor en una variable local 
     results = inputValue;
     console.log('hit:', inputValue);
+    const handleReset = () => {
+        // Aquí enviamos el valor de la dirección al padre o contexto
+        results = ""
+        console.log(results)
+    };
 
     const handleChange = (event) => {
-        setInputValue(event.target.value); // Actualiza el estado con el valor del input
+
+        setInputValue(results); // Actualiza el estado con el valor del input
 
         console.log('Value saved in variable Cha:', results, event.target.value);
         // Puedes usar la variable aquí o en otros lugares
@@ -70,7 +106,7 @@ export function TaskFilter({ task }) {
                                         <svg className="lex-shrink-0 w-5 h-5  transition duration-75 dark:hover:text-form" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
                                             <path d="m19.707 9.293-2-2-7-7a1 1 0 0 0-1.414 0l-7 7-2 2a1 1 0 0 0 1.414 1.414L2 10.414V18a2 2 0 0 0 2 2h3a1 1 0 0 0 1-1v-4a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v4a1 1 0 0 0 1 1h3a2 2 0 0 0 2-2v-7.586l.293.293a1 1 0 0 0 1.414-1.414Z" />
                                         </svg>
-                                        <span className="ms-3">Pagina pricipal</span>
+                                        <span className="ms-3">Página principal</span>
                                     </a>
                                 </Link>
                             </li>
@@ -103,47 +139,36 @@ export function TaskFilter({ task }) {
                         </ul>
                         <br></br>
 
-                        <div className="w-full max-w-sm bg-form border border-backgroundColor rounded-lg shadow  dark:border-backgroundColor">
-                            <div className="flex justify-end px-4 pt-4 ">
-                                <button id="dropdownButton" data-dropdown-toggle="dropdown" className="inline-block text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:ring-4 focus:outline-none focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-1.5" type="button">
-                                    <span className="sr-only">Open dropdown</span>
-
-                                </button>
-
-                                <div id="dropdown" className="z-10 hidden text-base list-none bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700">
-                                    <ul className="py-2" aria-labelledby="dropdownButton">
-                                        <li>
-                                            <a href="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-backgroundColor">Edit</a>
-                                        </li>
-                                        <li>
-                                            <a href="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-backgroundColor">Export Data</a>
-                                        </li>
-                                        <li>
-                                            <a href="#" className="block px-4 py-2 text-sm text-red-600 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-backgroundColor">Delete</a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
+                        <div className="w-full max-w-sm bg-form outline outline-2 rounded-lg shadow-md shadow-white  ">
+                            
                             <div className="flex flex-col items-center pb-10 bg-form">
-                                <img className="w-24 h-24 mb-3 rounded-full shadow-lg" src="https://cdn.pixabay.com/photo/2024/03/07/17/02/man-8618931_640.jpg" alt="Bonnie image" />
-                                <h5 className="mb-1 text-xl font-medium text-backgroundColor ">Bonnie Green</h5>
-                                <span className="text-sm text-backgroundColor ">Bienvenido  {user.username}</span>
+                                
+                                
+
 
                                 <br></br>
                                 <form onSubmit={handleChange} className="w-44 mx-96 ">
                                     <label htmlFor="default-search" className="mb-2 text-sm font-medium text-gray-900 sr-only ">Search</label>
+
+
+
+                                    <h5 className="mb-1 text-lg font-bold text-backgroundColor  font-sans ">Filtros</h5>
+                                    <br></br>
+                                    <button type="button" value={{ inputValue: true }} onClick={handleReset} className=" py-2 px-4 ms-2 text-sm font-medium text-gray-900 focus:outline-none bg-form rounded-lg border border-backgroundColor  hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700  dark:text-backgroundColor dark:border-backgroundColor dark:hover:text-form dark:hover:bg-backgroundColor ">Ver todas las tarjetas </button>
+                                    <br></br>
+                                    {tasks.map(task => (
+
+                                        <TaskDirection task={task} key={task._id} />
+
+                                    ))}
+                                    <br></br>
                                     <div className="relative">
-                                        <div className="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
-                                            <svg className="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
-                                                <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
-                                            </svg>
-                                        </div>
-                                        <input value={inputValue} onChange={handleChange} type="text" id="default-search" className="block w-full p-4 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500  dark:border-gray-600 dark:placeholder-gray-400  dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Risaralda" />
+
+                                        <button type="button" value={{ inputValue: true }} onClick={handleChange} className=" py-2 px-4 ms-2 text-sm font-medium text-gray-900 focus:outline-none bg-backgroundColor rounded-lg border border-backgroundColor  hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700  dark:text-form dark:border-backgroundColor dark:hover:text-white dark:hover:bg-green-500 "> Aplicar filtros</button>
 
 
                                     </div>
                                     <br></br>
-                                    <a href="#" className=" py-2 px-4 ms-2 text-sm font-medium text-gray-900 focus:outline-none bg-form rounded-lg border border-backgroundColor  hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700  dark:text-backgroundColor dark:border-backgroundColor dark:hover:text-form dark:hover:bg-backgroundColor ">Volver hasta arriba </a>
                                 </form>
 
 
@@ -171,7 +196,27 @@ export function TaskFilter({ task }) {
     )
 }
 function TaskCard({ task }) {
-    const { isAuthenticated, logout, user } = useAuth()
+    const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+    const [isDetailModalOpen, setIsDetailModalOpen] = useState(false);
+
+    const handleDeleteClick = () => {
+        setIsDeleteModalOpen(true);
+    };
+
+  
+
+    const cancelDelete = () => {
+        setIsDeleteModalOpen(false);
+    };
+
+    const openDetailModal = () => {
+        setIsDetailModalOpen(true);
+    };
+
+    const closeDetailModal = () => {
+        setIsDetailModalOpen(false);
+    };
+   
 
     if (results == "") {
 
@@ -181,101 +226,204 @@ function TaskCard({ task }) {
 
 
             <>
-                <div className=" w-auto h-auto max-w-8xl  bg-white rounded-lg  hover:outline hover:outline-sky-400 hover:outline-2 hover:shadow-2xl hover:shadow-blue-400 hover:scale-105 duration-200 ">
+                <div className="w-auto h-auto max-w-8xl bg-white rounded-lg hover:outline hover:outline-sky-400 hover:outline-2 hover:shadow-2xl hover:shadow-blue-400 hover:bg-white hover:scale-105 duration-200">
+                    <img className="rounded-t-lg w-full h-fit aspect-video" src={task.imagen} alt="" />
+                    {/* Botón para abrir el modal de detalles */}
+                    <button
+                        className="inline-flex items-center px-2 py-2 text-sm font-medium text-center text-white bg-form  hover:scale-105 duration-200"
+                        onClick={openDetailModal}
+                    >
+                        Ver Detalles
 
-                    <img className="rounded-t-lg w-auto h-auto aspect-video" src={task.imagen} alt="" />
-
+                    </button>
                     <div className="p-2">
+                        <h5 className="font-extrabold mb-2 text-4xl tracking-tight text-form text-justify px-10">{task.municipio + ', ' + task.departamento}</h5>
+                        <h5 className="font-sans mb-2 text-1xl font-bold tracking-tight text-form text-justify px-10">{task.barrio + ', ' + task.direccionHogar}</h5>
+                        <hr className="h-px my-8 bg-gray-200 border-0 dark:bg-gray-700 px-10" />
 
-                        <h5 className=" font-custom font-extrabold mb-2 text-9xl  tracking-tight text-form text-justify px-10 ">{task.municipio + ', ' + task.departamento}</h5>
-
-
-                        <h5 className=" font-sans mb-2 text-4xl font-bold tracking-tight text-form text-justify px-10">{task.barrio + ', ' + task.direccionHogar}</h5>
-
-
-                        <hr class="h-px my-8 bg-gray-200 border-0 dark:bg-gray-700 px-10" />
-
-
-                        <br></br>
-                        <h1 className="font-sans font-extrabold mb-2 text-5xl  tracking-tight text-form text-justify px-10">Propietario </h1>
-                        
-                        <h1 className="font-sans font-extrabold mb-2 text-3xl  tracking-tight text-form text-justify px-10">{task.propietario}
-                        </h1>
-                        <br></br>
-                        
-                        <h1 className="font-sans font-extrabold mb-2 text-2xl  tracking-tight text-blue-600 text-justify px-10">{'Numero: ' + task.propietarioNumero}</h1>
-                        <h1 className="font-sans font-extrabold mb-2 text-2xl  tracking-tight text-blue-600 text-justify px-10">{'Correo: ' + task.propietarioEmail}</h1>
-                        <br></br>
-                        <hr class="h-px my-8 bg-gray-200 border-0 dark:bg-gray-700 px-10" />
+                        {/* Propietario */}
 
 
 
+
+
+                        <h5 className=" font-sans mb-3 font-semibold text-2xl text-form  text-justify px-10">Fecha de creación: </h5>
+
+                        <h5 className=" font-sans mb-3 font-semibold text-1xl text-form  text-justify px-10">{new Date(task.createdAt).toLocaleString()}</h5>
 
                         <br></br>
-                        <h1 className="font-sans font-extrabold mb-2 text-5xl  tracking-tight text-form text-justify px-10">Inquilino</h1>
-                        <h1 className="font-sans font-extrabold mb-2 text-3xl  tracking-tight text-form text-justify px-10">{task.inquilinos}</h1>
-                        <br></br>
-                       
-                        <h1 className="font-sans font-extrabold mb-2 text-2xl  tracking-tight text-blue-600 text-justify px-10">{'Numero: ' + task.inquilinosNumero  }</h1>
-                        <h1 className="font-sans font-extrabold mb-2 text-2xl  tracking-tight text-blue-600 text-justify px-10">{'Correo: ' + task.inquilinosEmail}</h1>
-                        <hr class="h-px my-8 bg-gray-200 border-0 dark:bg-gray-700 px-10" />
-                        <br></br>
+                        <h5 className=" font-sans mb-3 font-semibold text-2xl text-form  text-justify px-10 ">Última modificación: </h5>
+                        <h5 className=" font-sans mb-3 font-semibold text-1xl text-form  text-justify px-10 ">{new Date(task.updatedAt).toLocaleString()}</h5>
 
-                        <h1 className="font-sans font-extrabold mb-2 text-5xl  tracking-semibold text-form text-justify px-10">Descripcion</h1>
-                        <br></br>
-                        <p className="font-sans mb-3 font-light text-2xl text-form  text-justify px-10">{task.historial}</p>
-                        <br></br>
-                        <div>
-                            <a href={task.doc} target="_blank" rel="noopener noreferrer">
-                                <h5 className=" font-sans px-10 mb-2 text-3xl font-extrabold tracking-tight text-blue-400  underline">{'Click para descargar contrato o documento asignado'}</h5>
-                            </a>
-                            <br></br>
-
-                            <hr class="h-px my-8 bg-gray-200 border-0 dark:bg-gray-700 px-10" />
-
-
-                            <h5 className=" font-sans mb-3 font-semibold text-2xl text-form  text-justify px-10">{'Fecha de creacion: ' + new Date(task.createdAt).toLocaleString()}</h5>
-
-                            <br></br>
-
-                            <h5 className=" font-sans mb-3 font-semibold text-2xl text-form  text-justify px-10 ">{'Última modificación: ' + new Date(task.updatedAt).toLocaleString()}</h5>
-
-
-
-
-
-                        </div>
                         <br></br>
                         <br></br>
-                        <div className="flex justify-between items-center px-10">
-                            <Link to={`/tasks/${task._id}`} className=" font-custom inline-flex items-center px-5 py-4 text-lg font-medium  text-center text-form border border-form rounded-lg dark:hover:bg-form dark:hover:text-backgroundColor">
-                                Actualizar/Editar
-                                <svg className="rtl:rotate-180 w-3.5 h-3.5 ms-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
-                                    <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M1 5h12m0 0L9 1m4 4L9 9" />
-                                </svg>
+
+                        <div className="flex justify-between items-center px-10 ">
+                            <Link to={`/tasks/${task._id}`} className=" inline-flex items-center px-2 py-2 text-sm font-medium text-center text-form border border-form rounded-lg dark:hover:bg-form dark:hover:text-backgroundColor">
+                                Actualizar
 
                             </Link>
 
-                            <button className="inline-flex items-center px-5 py-4 text-lg font-medium text-center text-white bg-red-500 rounded-lg hover:opacity-70 " onClick={() => {
-                                deleteTask(task._id);
-                            }}>
+                            <button
+                                className="inline-flex items-center px-2 py-2 text-sm font-medium text-center text-white bg-red-500 rounded-lg hover:opacity-70"
+                                onClick={handleDeleteClick}
+                            >
                                 Eliminar
-                                <svg className="rtl:rotate-180 w-3.5 h-3.5 ms-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
-                                    <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M1 5h12m0 0L9 1m4 4L9 9" />
-                                </svg>
 
                             </button>
+
+
                         </div>
-                        <br></br>
-                        <br></br>
                     </div>
+
+                    {/* Modal de confirmación de eliminación */}
+                    {isDeleteModalOpen && (
+                        <div className="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50">
+                            <div className="bg-white rounded-lg shadow-lg p-6 w-full max-w-md">
+                                <br />
+                                <h2 className="text-2xl font-bold text-black text-center">
+                                    ¿Estás seguro de que deseas eliminar esta casa?
+                                </h2>
+                                <br />
+                                <h2 className="text-xl font-semibold text-gray-800 text-center">
+                                    {task.municipio + ', ' + task.departamento}
+                                </h2>
+                                <h2 className="text-lg font-semibold text-gray-800 text-center">
+                                    {task.barrio + ', ' + task.direccionHogar}
+                                </h2>
+                                <br />
+                                <p className="text-2xl font-bold text-form mt-2">¡IMPORTANTE!</p>
+                                <p className="text-lg font-bold text-blue-600 mt-2">Esta acción no se puede deshacer.</p>
+                                <div className="mt-4 flex justify-end space-x-3 ">
+                                    <button
+                                        className="text-lg px-4 py-2 bg-gray-300 text-gray-700 rounded-lg hover:bg-gray-400"
+                                        onClick={cancelDelete}
+                                    >
+                                        Cancelar
+                                    </button>
+                                    <button
+                                        className="px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600"
+                                        onClick={() => {
+                                            deleteTask(task._id);
+                                        }}>
+
+                                        Confirmar
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    )}
+
+                    {/* Modal de vista completa */}
+                    {isDetailModalOpen && (
+                        <div className="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50">
+
+                            <div className="bg-form rounded-lg shadow-lg p-4 w-full max-w-4xl h-auto overflow-y-hidden">
+                                <div className="max-h-[70vh] overflow-y-auto bg-custom-gradient-two">
+                                   
+
+                                    <div className="bg-form h-80">
+                                        <br />
+                                        <br />
+                                        <br />
+                                        <h1 class="mb-4 text-3xl font-extrabold text-white md:text-5xl lg:text-8xl text-center">¡Descubre cada <span class="text-transparent bg-clip-text bg-gradient-to-r to-yellow-600 from-yellow-500"> detalle </span>!</h1>
+                                    </div>
+                                    <br />
+                                    <br />
+                                    <h5 className="font-extrabold  mb-2 text-6xl tracking-tight text-form text-justify px-10">{task.municipio + ', ' + task.departamento}</h5>
+                                    <br />
+                                    <h5 className="font-sans mb-2 text-3xl font-bold tracking-tight text-form text-justify px-10">{task.barrio + ', ' + task.direccionHogar}</h5>
+                                    <hr className="h-px my-8 bg-white border-0 dark:bg-form px-10" />
+
+                                    <h1 className="font-sans font-extrabold mb-2 text-4xl tracking-tight text-form text-justify px-10">Propietario</h1>
+                                    <br />
+                                    <h1 className="font-sans font-extrabold mb-2 text-2xl tracking-tight text-form text-justify px-10">{task.propietario}</h1>
+                                    <br />
+                                    <h1 className="font-sans font-extrabold mb-2 text-2xl tracking-tight text-blue-600 text-justify px-10">{'Número: ' + task.propietarioNumero}</h1>
+                                    <h1 className="font-sans font-extrabold mb-2 text-2xl tracking-tight text-blue-600 text-justify px-10">{'Correo: ' + task.propietarioEmail}</h1>
+                                    <hr className="h-px my-8 bg-gray-200 border-0 dark:bg-form  px-10" />
+
+                                    {/* Inquilino */}
+                                    <h1 className="font-sans font-extrabold mb-2 text-4xl tracking-tight text-form text-justify px-10">Inquilino</h1>
+                                    <br />
+                                    <h1 className="font-sans font-extrabold mb-2 text-2xl tracking-tight text-form text-justify px-10">{task.inquilinos}</h1>
+                                    <br />
+                                    <h1 className="font-sans font-extrabold mb-2 text-2xl tracking-tight text-blue-600 text-justify px-10">{'Número: ' + task.inquilinosNumero}</h1>
+                                    <h1 className="font-sans font-extrabold mb-2 text-2xl tracking-tight text-blue-600 text-justify px-10">{'Correo: ' + task.inquilinosEmail}</h1>
+                                    <hr className="h-px my-8 bg-gray-200 border-0 dark:bg-form  px-10" />
+                                    {/* Descripción */}
+                                    <h1 className="font-sans font-extrabold mb-2 text-4xl tracking-semibold text-form text-justify px-10">Descripción</h1>
+                                    <br />
+                                    <p className="font-sans mb-3 font-light text-2xl text-form text-justify px-10">{task.historial}</p>
+                                    <br />
+                                    <h1 className="font-sans font-extrabold mb-2 text-4xl  tracking-tight text-form text-justify px-10">Documento asignado </h1>
+                                    <br></br>
+                                    <div className="  mb-2 text-5xl  tracking-tight px-10 rounded-lg">
+                                        <iframe
+
+                                            src={task.doc}
+                                            width="100%"
+                                            height="640"
+                                            title="Vista previa del documento"
+                                            style={{
+
+                                                border: "solid",
+                                                borderRadius: "2%",
+                                                imageRendering: 'auto',
+                                                willChange: 'transform',
+                                                backfaceVisibility: 'hidden',
+                                                filter: 'none',
+                                            }}
+
+                                        />
+                                    </div>
+                                    <br></br>
+                                    <h1 className="font-sans font-extrabold mb-2 text-5xl  tracking-tight text-form text-justify px-10">Certificado del gas </h1>
+                                    <br></br>
+                                    <div className="  mb-2 text-5xl  tracking-tight px-10 rounded-lg">
+                                        <iframe
+
+                                            src={task.certify}
+                                            width="100%"
+                                            height="640"
+                                            title="Vista previa del documento"
+                                            style={{
+
+                                                border: "solid",
+                                                borderRadius: "2%",
+                                                imageRendering: 'auto',
+                                                willChange: 'transform',
+                                                backfaceVisibility: 'hidden',
+                                                filter: 'none',
+                                            }}
+                                        />
+                                    </div>
+                                    <br></br>
+
+
+
+                                </div>
+
+                                {/* Botón de cerrar */}
+                                <div className="mt-4 flex justify-end">
+                                    <button
+                                        className="px-4 py-2 bg-gray-300 text-gray-700 rounded-lg hover:bg-gray-400"
+                                        onClick={closeDetailModal}
+                                    >
+                                        Cerrar
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                    )}
                 </div>
 
-                <div className="fixed z-50 w-full h-16 max-w-lg -translate-x-1/2 bg-white border border-gray-200 rounded-full bottom-4 left-1/2 dark:bg-backgroundColor dark:border-backgroundColor dark:hover:border-backgroundColor">
+                <div className="fixed z-50 w-full h-16 max-w-lg -translate-x-1/2 bg-white border border-gray-200 rounded-full bottom-4 left-1/2 dark:bg-form dark:border-backgroundColor dark:hover:border-backgroundColor">
                     <div className="grid h-full max-w-lg grid-cols-3 mx-auto">
-                        <Link to="/" className="inline-flex flex-col items-center justify-center px-5 rounded-s-full  hover:bg-gray-50 dark:hover:bg-form group">
+                        <Link to="/" className="inline-flex flex-col items-center justify-center px-5 rounded-s-full  hover:bg-gray-50 dark:hover:bg-white group">
                             <button data-tooltip-target="tooltip-home" type="button">
-                                <svg className="w-8 h-8 mb-1 text-form dark:text-form group-hover:text-blue-600 dark:group-hover:text-backgroundColor" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                                <svg className="w-8 h-8 mb-1 text-form dark:text-white group-hover:text-blue-600 dark:group-hover:text-form" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
                                     <path d="m19.707 9.293-2-2-7-7a1 1 0 0 0-1.414 0l-7 7-2 2a1 1 0 0 0 1.414 1.414L2 10.414V18a2 2 0 0 0 2 2h3a1 1 0 0 0 1-1v-4a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v4a1 1 0 0 0 1 1h3a2 2 0 0 0 2-2v-7.586l.293.293a1 1 0 0 0 1.414-1.414Z" />
                                 </svg>
                                 <span className="sr-only">Home</span>
@@ -301,9 +449,9 @@ function TaskCard({ task }) {
                             Create new item
                             <div className="tooltip-arrow" data-popper-arrow></div>
                         </div>
-                        <Link to="/tasks" className="inline-flex flex-col items-center justify-center px-5 rounded-e-full hover:bg-gray-50 dark:hover:bg-form group">
+                        <Link to="/tasks" className="inline-flex flex-col items-center justify-center px-5 rounded-e-full hover:bg-gray-50 dark:hover:bg-white group">
                             <button data-tooltip-target="tooltip-profile" type="button">
-                                <svg className="flex-shrink-0 w-8 h-8  transition duration-75  text-form dark:text-form group-hover:text-blue-600 dark:group-hover:text-backgroundColor" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 18 18">
+                                <svg className="flex-shrink-0 w-8 h-8  transition duration-75  text-form dark:text-white group-hover:text-blue-600 dark:group-hover:text-form" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 18 18">
                                     <path d="M6.143 0H1.857A1.857 1.857 0 0 0 0 1.857v4.286C0 7.169.831 8 1.857 8h4.286A1.857 1.857 0 0 0 8 6.143V1.857A1.857 1.857 0 0 0 6.143 0Zm10 0h-4.286A1.857 1.857 0 0 0 10 1.857v4.286C10 7.169 10.831 8 11.857 8h4.286A1.857 1.857 0 0 0 18 6.143V1.857A1.857 1.857 0 0 0 16.143 0Zm-10 10H1.857A1.857 1.857 0 0 0 0 11.857v4.286C0 17.169.831 18 1.857 18h4.286A1.857 1.857 0 0 0 8 16.143v-4.286A1.857 1.857 0 0 0 6.143 10Zm10 0h-4.286A1.857 1.857 0 0 0 10 11.857v4.286c0 1.026.831 1.857 1.857 1.857h4.286A1.857 1.857 0 0 0 18 16.143v-4.286A1.857 1.857 0 0 0 16.143 10Z" />
                                 </svg>
                                 <span className="sr-only">Profile</span>
@@ -335,75 +483,199 @@ function TaskCard({ task }) {
         return (
 
             <>
-                <div className="max-w-8xl bg-custom-gradient-two border border-black rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 cursor-pointer opacity-50   hover:opacity-100 delay-60  ">
+                <div className="w-auto h-auto max-w-8xl bg-white rounded-lg hover:outline hover:outline-sky-400 hover:outline-2 hover:shadow-2xl hover:shadow-blue-400 hover:bg-white duration-200">
+                    <img className="rounded-t-lg w-full h-fit aspect-video" src={task.imagen} alt="" />
+                    {/* Botón para abrir el modal de detalles */}
+                    <button
+                        className="inline-flex items-center px-2 py-2 text-sm font-medium text-center text-white bg-form  hover:scale-105 duration-200"
+                        onClick={openDetailModal}
+                    >
+                        Ver Detalles
 
-                    <img className="rounded-t-lg" src={task.imagen} alt="" />
+                    </button>
+                    <div className="p-2">
+                        <h5 className="font-extrabold mb-2 text-3xl tracking-tight text-form text-justify px-10">{task.municipio + ', ' + task.departamento}</h5>
+                        <h5 className="font-sans mb-2 text-3xl font-bold tracking-tight text-form text-justify px-10">{task.barrio + ', ' + task.direccionHogar}</h5>
+                        <hr className="h-px my-8 bg-gray-200 border-0 dark:bg-gray-700 px-10" />
 
-                    <div className="p-5">
-                        <a href="#">
-                            <h5 className=" font-custom font-extrabold mb-2 text-5xl  tracking-tight text-black ">{task.municipio + ', ' + task.departamento}</h5>
-                        </a>
-                        <a href="#">
-                            <h5 className=" font-sans mb-2 text-3xl font-bold tracking-tight text-black ">{task.barrio + ', ' + task.direccionHogar}</h5>
-                        </a>
-                        <a href="#">
-                            <h5 className=" mb-2 text-3xl font-bold tracking-tight text-black ">{'____________________________________________________'}</h5>
-                        </a>
-                        <br></br>
-                        <br></br>
-                        <br></br>
-                        <p className="font-custom mb-3 font-bold text-2xl text-black  text-justify px-10">{task.historial}</p>\
-                        <br></br>
-                        <div>
-                            <a href={task.doc} target="_blank" rel="noopener noreferrer">
-                                <h5 className=" font-custom px-10 mb-2 text-3xl font-extrabold tracking-tight text-blue-400  underline">{'Click para descargar contrato u documento asignado'}</h5>
-                            </a>
-                            <br></br>
-                            <a href="#">
-                                <h5 className=" mb-2 text-3xl font-bold tracking-tight text-black ">{'___________________________________________________________________________________________________________ '}</h5>
-                            </a>
-                            <a href="#">
-                                <h5 className=" font-custom mb-2 text-2xl tracking-tight text-black ">{'Fecha de creacion: ' + new Date(task.createdAt).toLocaleString()}</h5>
-                            </a>
-                            <br></br>
-                            <a href="#">
-                                <h5 className=" font-custom mb-2 text-2xl  tracking-tight text-black ">{'Última modificación: ' + new Date(task.updatedAt).toLocaleString()}</h5>
-                            </a>
+                        {/* Propietario */}
 
 
 
 
-                        </div>
+
+                        <h5 className=" font-sans mb-3 font-semibold text-2xl text-form  text-justify px-10">Fecha de creación: </h5>
+
+                        <h5 className=" font-sans mb-3 font-semibold text-1xl text-form  text-justify px-10">{new Date(task.createdAt).toLocaleString()}</h5>
+
+                        <br></br>
+                        <h5 className=" font-sans mb-3 font-semibold text-2xl text-form  text-justify px-10 ">Última modificación: </h5>
+                        <h5 className=" font-sans mb-3 font-semibold text-1xl text-form  text-justify px-10 ">{new Date(task.updatedAt).toLocaleString()}</h5>
+
                         <br></br>
                         <br></br>
-                        <div className="flex justify-between items-center">
-                            <Link to={`/tasks/${task._id}`} className=" font-custom inline-flex items-center px-5 py-4 text-lg font-medium  text-center text-backgroundColor border border-backgroundColor  rounded-lg dark:hover:bg-backgroundColor dark:hover:text-white">
-                                Actualizar/Editar
-                                <svg className="rtl:rotate-180 w-3.5 h-3.5 ms-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
-                                    <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M1 5h12m0 0L9 1m4 4L9 9" />
-                                </svg>
+
+                        <div className="flex justify-between items-center px-10 ">
+                            <Link to={`/tasks/${task._id}`} className=" inline-flex items-center px-2 py-2 text-sm font-medium text-center text-form border border-form rounded-lg dark:hover:bg-form dark:hover:text-backgroundColor">
+                                Actualizar
 
                             </Link>
 
-                            <button className="inline-flex items-center px-5 py-4 text-lg font-medium text-center text-white bg-red-500 rounded-lg hover:opacity-70 " onClick={() => {
-                                deleteTask(task._id);
-                            }}>
+                            <button
+                                className="inline-flex items-center px-2 py-2 text-sm font-medium text-center text-white bg-red-500 rounded-lg hover:opacity-70"
+                                onClick={handleDeleteClick}
+                            >
                                 Eliminar
-                                <svg className="rtl:rotate-180 w-3.5 h-3.5 ms-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
-                                    <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M1 5h12m0 0L9 1m4 4L9 9" />
-                                </svg>
 
                             </button>
+
+
                         </div>
-                        <br></br>
-                        <br></br>
                     </div>
+
+                    {/* Modal de confirmación de eliminación */}
+                    {isDeleteModalOpen && (
+                        <div className="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50">
+                            <div className="bg-white rounded-lg shadow-lg p-6 w-full max-w-md">
+                                <br />
+                                <h2 className="text-2xl font-bold text-black text-center">
+                                    ¿Estás seguro de que deseas eliminar esta casa?
+                                </h2>
+                                <br />
+                                <h2 className="text-xl font-semibold text-gray-800 text-center">
+                                    {task.municipio + ', ' + task.departamento}
+                                </h2>
+                                <h2 className="text-lg font-semibold text-gray-800 text-center">
+                                    {task.barrio + ', ' + task.direccionHogar}
+                                </h2>
+                                <br />
+                                <p className="text-2xl font-bold text-form mt-2">¡IMPORTANTE!</p>
+                                <p className="text-lg font-bold text-blue-600 mt-2">Esta acción no se puede deshacer.</p>
+                                <div className="mt-4 flex justify-end space-x-3 ">
+                                    <button
+                                        className="text-lg px-4 py-2 bg-gray-300 text-gray-700 rounded-lg hover:bg-gray-400"
+                                        onClick={cancelDelete}
+                                    >
+                                        Cancelar
+                                    </button>
+                                    <button
+                                        className="px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600"
+                                        onClick={() => {
+                                            deleteTask(task._id);
+                                        }}>
+
+                                        Confirmar
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    )}
+
+                    {/* Modal de vista completa */}
+                    {isDetailModalOpen && (
+                        <div className="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50">
+
+                            <div className="bg-form rounded-lg shadow-lg p-4 w-full max-w-8xl h-auto overflow-y-hidden">
+                                <div className="max-h-[70vh] overflow-y-auto bg-white">
+                                    <img src="https://firebasestorage.googleapis.com/v0/b/myapp-80b3c.appspot.com/o/images%2Fimage.png?alt=media&token=90f2d678-f08a-40da-822b-4d825146cc27" alt="" className="relative top-24 aspect-video "
+                                        style={{ width: '300px', height: 'auto' }} />
+
+                                    <div className="bg-form h-80">
+                                        <br />
+                                        <br />
+                                        <br />
+                                        <h1 class="mb-4 text-3xl font-extrabold text-white md:text-5xl lg:text-8xl text-center"> ¡Descubre cada detalle! </h1><h1 class="mb-4 text-3xl font-extrabold text-white md:text-5xl lg:text-5xl text-center">Con<span class="text-transparent bg-clip-text bg-gradient-to-r to-yellow-600 from-yellow-500"> alegría </span>te mostramos todo sobre tu casa</h1>
+                                    </div>
+                                    <br />
+                                    <br />
+                                    <h5 className="font-extrabold  mb-2 text-8xl tracking-tight text-form text-justify px-10">{task.municipio + ', ' + task.departamento}</h5>
+                                    <br />
+                                    <h5 className="font-sans mb-2 text-4xl font-bold tracking-tight text-form text-justify px-10">{task.barrio + ', ' + task.direccionHogar}</h5>
+                                    <hr className="h-px my-8 bg-white border-0 dark:bg-form px-10" />
+
+                                    <h1 className="font-sans font-extrabold mb-2 text-5xl tracking-tight text-form text-justify px-10">Propietario</h1>
+                                    <h1 className="font-sans font-extrabold mb-2 text-3xl tracking-tight text-form text-justify px-10">{task.propietario}</h1>
+                                    <h1 className="font-sans font-extrabold mb-2 text-2xl tracking-tight text-blue-600 text-justify px-10">{'Número: ' + task.propietarioNumero}</h1>
+                                    <h1 className="font-sans font-extrabold mb-2 text-2xl tracking-tight text-blue-600 text-justify px-10">{'Correo: ' + task.propietarioEmail}</h1>
+                                    <hr className="h-px my-8 bg-gray-200 border-0 dark:bg-form  px-10" />
+
+                                    {/* Inquilino */}
+                                    <h1 className="font-sans font-extrabold mb-2 text-5xl tracking-tight text-form text-justify px-10">Inquilino</h1>
+                                    <h1 className="font-sans font-extrabold mb-2 text-3xl tracking-tight text-form text-justify px-10">{task.inquilinos}</h1>
+                                    <h1 className="font-sans font-extrabold mb-2 text-2xl tracking-tight text-blue-600 text-justify px-10">{'Número: ' + task.inquilinosNumero}</h1>
+                                    <h1 className="font-sans font-extrabold mb-2 text-2xl tracking-tight text-blue-600 text-justify px-10">{'Correo: ' + task.inquilinosEmail}</h1>
+                                    <hr className="h-px my-8 bg-gray-200 border-0 dark:bg-form  px-10" />
+                                    {/* Descripción */}
+                                    <h1 className="font-sans font-extrabold mb-2 text-5xl tracking-semibold text-form text-justify px-10">Descripción</h1>
+                                    <p className="font-sans mb-3 font-light text-2xl text-form text-justify px-10">{task.historial}</p>
+                                    <h1 className="font-sans font-extrabold mb-2 text-5xl  tracking-tight text-form text-justify px-10">Documento asignado </h1>
+                                    <br></br>
+                                    <div className="  mb-2 text-5xl  tracking-tight px-10 rounded-lg">
+                                        <iframe
+
+                                            src={task.doc}
+                                            width="100%"
+                                            height="640"
+                                            title="Vista previa del documento"
+                                            style={{
+
+                                                border: "solid",
+                                                borderRadius: "2%",
+                                                imageRendering: 'auto',
+                                                willChange: 'transform',
+                                                backfaceVisibility: 'hidden',
+                                                filter: 'none',
+                                            }}
+
+                                        />
+                                    </div>
+                                    <br></br>
+                                    <h1 className="font-sans font-extrabold mb-2 text-5xl  tracking-tight text-form text-justify px-10">Certificado del gas </h1>
+                                    <br></br>
+                                    <div className="  mb-2 text-5xl  tracking-tight px-10 rounded-lg">
+                                        <iframe
+
+                                            src={task.certify}
+                                            width="100%"
+                                            height="640"
+                                            title="Vista previa del documento"
+                                            style={{
+
+                                                border: "solid",
+                                                borderRadius: "2%",
+                                                imageRendering: 'auto',
+                                                willChange: 'transform',
+                                                backfaceVisibility: 'hidden',
+                                                filter: 'none',
+                                            }}
+                                        />
+                                    </div>
+                                    <br></br>
+
+
+
+                                </div>
+
+                                {/* Botón de cerrar */}
+                                <div className="mt-4 flex justify-end">
+                                    <button
+                                        className="px-4 py-2 bg-gray-300 text-gray-700 rounded-lg hover:bg-gray-400"
+                                        onClick={closeDetailModal}
+                                    >
+                                        Cerrar
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                    )}
                 </div>
-                <div className="fixed z-50 w-full h-16 max-w-lg -translate-x-1/2 bg-white border border-gray-200 rounded-full bottom-4 left-1/2 dark:bg-backgroundColor dark:border-backgroundColor dark:hover:border-backgroundColor">
+
+                <div className="fixed z-50 w-full h-16 max-w-lg -translate-x-1/2 bg-white border border-gray-200 rounded-full bottom-4 left-1/2 dark:bg-form dark:border-backgroundColor dark:hover:border-backgroundColor">
                     <div className="grid h-full max-w-lg grid-cols-3 mx-auto">
-                        <Link to="/" className="inline-flex flex-col items-center justify-center px-5 rounded-s-full  hover:bg-gray-50 dark:hover:bg-form group">
+                        <Link to="/" className="inline-flex flex-col items-center justify-center px-5 rounded-s-full  hover:bg-gray-50 dark:hover:bg-white group">
                             <button data-tooltip-target="tooltip-home" type="button">
-                                <svg className="w-8 h-8 mb-1 text-form dark:text-form group-hover:text-blue-600 dark:group-hover:text-backgroundColor" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                                <svg className="w-8 h-8 mb-1 text-form dark:text-white group-hover:text-blue-600 dark:group-hover:text-form" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
                                     <path d="m19.707 9.293-2-2-7-7a1 1 0 0 0-1.414 0l-7 7-2 2a1 1 0 0 0 1.414 1.414L2 10.414V18a2 2 0 0 0 2 2h3a1 1 0 0 0 1-1v-4a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v4a1 1 0 0 0 1 1h3a2 2 0 0 0 2-2v-7.586l.293.293a1 1 0 0 0 1.414-1.414Z" />
                                 </svg>
                                 <span className="sr-only">Home</span>
@@ -429,9 +701,53 @@ function TaskCard({ task }) {
                             Create new item
                             <div className="tooltip-arrow" data-popper-arrow></div>
                         </div>
-                        <Link to="/tasks" className="inline-flex flex-col items-center justify-center px-5 rounded-e-full hover:bg-gray-50 dark:hover:bg-form group">
+                        <Link to="/tasks" className="inline-flex flex-col items-center justify-center px-5 rounded-e-full hover:bg-gray-50 dark:hover:bg-white group">
                             <button data-tooltip-target="tooltip-profile" type="button">
-                                <svg className="flex-shrink-0 w-8 h-8  transition duration-75  text-form dark:text-form group-hover:text-blue-600 dark:group-hover:text-backgroundColor" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 18 18">
+                                <svg className="flex-shrink-0 w-8 h-8  transition duration-75  text-form dark:text-white group-hover:text-blue-600 dark:group-hover:text-form" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 18 18">
+                                    <path d="M6.143 0H1.857A1.857 1.857 0 0 0 0 1.857v4.286C0 7.169.831 8 1.857 8h4.286A1.857 1.857 0 0 0 8 6.143V1.857A1.857 1.857 0 0 0 6.143 0Zm10 0h-4.286A1.857 1.857 0 0 0 10 1.857v4.286C10 7.169 10.831 8 11.857 8h4.286A1.857 1.857 0 0 0 18 6.143V1.857A1.857 1.857 0 0 0 16.143 0Zm-10 10H1.857A1.857 1.857 0 0 0 0 11.857v4.286C0 17.169.831 18 1.857 18h4.286A1.857 1.857 0 0 0 8 16.143v-4.286A1.857 1.857 0 0 0 6.143 10Zm10 0h-4.286A1.857 1.857 0 0 0 10 11.857v4.286c0 1.026.831 1.857 1.857 1.857h4.286A1.857 1.857 0 0 0 18 16.143v-4.286A1.857 1.857 0 0 0 16.143 10Z" />
+                                </svg>
+                                <span className="sr-only">Profile</span>
+                            </button>
+                        </Link>
+                        <div id="tooltip-profile" role="tooltip" className="absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-white transition-opacity duration-300 bg-gray-900 rounded-lg shadow-sm opacity-0 tooltip dark:bg-gray-700">
+                            Profile
+                            <div className="tooltip-arrow" data-popper-arrow></div>
+                        </div>
+                    </div>
+                </div>
+                <div className="fixed z-50 w-full h-16 max-w-lg -translate-x-1/2 bg-white border border-gray-200 rounded-full bottom-4 left-1/2 dark:bg-form dark:border-backgroundColor dark:hover:border-backgroundColor">
+                    <div className="grid h-full max-w-lg grid-cols-3 mx-auto">
+                        <Link to="/" className="inline-flex flex-col items-center justify-center px-5 rounded-s-full  hover:bg-gray-50 dark:hover:bg-white group">
+                            <button data-tooltip-target="tooltip-home" type="button">
+                                <svg className="w-8 h-8 mb-1 text-form dark:text-white group-hover:text-blue-600 dark:group-hover:text-form" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                                    <path d="m19.707 9.293-2-2-7-7a1 1 0 0 0-1.414 0l-7 7-2 2a1 1 0 0 0 1.414 1.414L2 10.414V18a2 2 0 0 0 2 2h3a1 1 0 0 0 1-1v-4a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v4a1 1 0 0 0 1 1h3a2 2 0 0 0 2-2v-7.586l.293.293a1 1 0 0 0 1.414-1.414Z" />
+                                </svg>
+                                <span className="sr-only">Home</span>
+                            </button>
+                        </Link>
+                        <div id="tooltip-home" role="tooltip" className="absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-white transition-opacity duration-300 bg-gray-900 rounded-lg shadow-sm opacity-0 tooltip dark:bg-gray-700">
+                            Home
+                            <div className="tooltip-arrow" data-popper-arrow></div>
+                        </div>
+
+
+                        <div className="flex items-center justify-center">
+                            <Link to="/tasks/new" className="inline-flex items-center justify-center w-10 h-10 font-medium bg-blue-600 rounded-full hover:bg-blue-700 group focus:ring-4 focus:ring-blue-300 focus:outline-none dark:focus:ring-blue-800">
+                                <button data-tooltip-target="tooltip-new" type="button">
+                                    <svg className="w-4 h-4 text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 18">
+                                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 1v16M1 9h16" />
+                                    </svg>
+                                    <span className="sr-only">New item</span>
+                                </button>
+                            </Link>
+                        </div>
+                        <div id="tooltip-new" role="tooltip" className="absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-white transition-opacity duration-300 bg-gray-900 rounded-lg shadow-sm opacity-0 tooltip dark:bg-gray-700">
+                            Create new item
+                            <div className="tooltip-arrow" data-popper-arrow></div>
+                        </div>
+                        <Link to="/tasks" className="inline-flex flex-col items-center justify-center px-5 rounded-e-full hover:bg-gray-50 dark:hover:bg-white group">
+                            <button data-tooltip-target="tooltip-profile" type="button">
+                                <svg className="flex-shrink-0 w-8 h-8  transition duration-75  text-form dark:text-white group-hover:text-blue-600 dark:group-hover:text-form" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 18 18">
                                     <path d="M6.143 0H1.857A1.857 1.857 0 0 0 0 1.857v4.286C0 7.169.831 8 1.857 8h4.286A1.857 1.857 0 0 0 8 6.143V1.857A1.857 1.857 0 0 0 6.143 0Zm10 0h-4.286A1.857 1.857 0 0 0 10 1.857v4.286C10 7.169 10.831 8 11.857 8h4.286A1.857 1.857 0 0 0 18 6.143V1.857A1.857 1.857 0 0 0 16.143 0Zm-10 10H1.857A1.857 1.857 0 0 0 0 11.857v4.286C0 17.169.831 18 1.857 18h4.286A1.857 1.857 0 0 0 8 16.143v-4.286A1.857 1.857 0 0 0 6.143 10Zm10 0h-4.286A1.857 1.857 0 0 0 10 11.857v4.286c0 1.026.831 1.857 1.857 1.857h4.286A1.857 1.857 0 0 0 18 16.143v-4.286A1.857 1.857 0 0 0 16.143 10Z" />
                                 </svg>
                                 <span className="sr-only">Profile</span>

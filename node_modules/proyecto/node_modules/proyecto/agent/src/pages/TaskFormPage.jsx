@@ -25,6 +25,7 @@ function TaskFormPage() {
     const [image, setImage] = useState(null); // State to hold the uploaded image file
     const [imageUrl, setImageUrl] = useState(""); // State to hold the URL of the uploaded image
     const [docUrl, setDocUrl] = useState(""); // State to hold the URL of the uploaded image
+    const [certifyUrl, setCertifyUrl] = useState(""); // State to hold the URL of the uploaded image
     const navigate = useNavigate()
     const params = useParams()
 
@@ -33,6 +34,7 @@ function TaskFormPage() {
             if (params.id) {
                 console.log(params)
                 const task = await getTask(params.id)
+                setValue('certify', task.certify)
                 setValue('doc', task.doc)
                 setValue('imagen', task.imagen)
                 setValue('departamento', task.departamento)
@@ -77,8 +79,8 @@ function TaskFormPage() {
         try {
             // Opciones de compresión
             const opciones = {
-                maxSizeMB: 0.5, // Tamaño máximo 1MB
-                maxWidthOrHeight: 3000, // Máximo 800px en el lado más largo
+                maxSizeMB: 1, // Tamaño máximo 1MB
+                maxWidthOrHeight: 800, // Máximo 800px en el lado más largo
                 useWebWorker: true, // Mejora de rendimiento
             };
 
@@ -112,6 +114,20 @@ function TaskFormPage() {
 
         }
     };
+    const handleCertifyUpload = async (e) => {
+
+        const file = e.target.files[0];
+        setImage(file);
+
+        // Upload image to Firebase Storage
+        if (file) {
+            const storageRef = ref(storage, `images/${file.name}`);
+            await uploadBytes(storageRef, file);
+            const certifyUrl = await getDownloadURL(storageRef);
+            setCertifyUrl(certifyUrl); // Guardar la URL de la imagen en el estado imageUrl
+
+        }
+    };
     const onSubmit = handleSubmit((data) => {
         if (params.id) {
             updateTask(params.id, data)
@@ -129,11 +145,14 @@ function TaskFormPage() {
     useEffect(() => {
         setValue('doc', docUrl);
     }, [docUrl, setValue]);
+    useEffect(() => {
+        setValue('certify', certifyUrl);
+    }, [certifyUrl, setValue]);
     return (
 
         <>
             <form onSubmit={onSubmit} className='bg-white w-full max-w-24xl p-10 rounded-md border'>
-                <div className="grid gap-6 mb-6 md:grid-cols-2 ">
+                <div className="grid gap-6 mb-6 md:grid-cols-5 ">
                     <div>
                         <label for="first_name" className="block mb-2 text-sm font-medium text-gray-900 ">Departamento</label>
                         <input type="text" {...register('departamento')} id="first_name" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5  dark:border-gray-600 dark:placeholder-gray-400  dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Risaralda" required />
@@ -193,70 +212,78 @@ function TaskFormPage() {
                     <label htmlFor="image" className="form-label">Upload Image</label>
 
                     <label className="block mb-2 text-sm font-medium text-gray-900 " for="large_size">Imagen</label>
-                    <input className="block w-full text-lg text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none  dark:border-gray-600 dark:placeholder-gray-400" id="large_size" type="file" onChange={handleImageUpload} ></input>
+                    <input className="block w-auto text-lg text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none  dark:border-gray-600 dark:placeholder-gray-400" id="large_size" type="file" onChange={handleImageUpload} ></input>
 
-                    <input type="text" {...register('imagen')} className='opacity-0' />
+                    <input type="image" {...register('imagen')} className='opacity-0' />
                 </div>
                 <div className="mb-3">
                     <label htmlFor="image" className="form-label">Upload File</label>
 
                     <label className="block mb-2 text-sm font-medium text-gray-900 " for="large_size">Archivos</label>
-                    <input className="block w-full text-lg text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none  dark:border-gray-600 dark:placeholder-gray-400" id="large_size" type="file" onChange={handleDocUpload} ></input>
+                    <input className="block w-auto text-lg text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none  dark:border-gray-600 dark:placeholder-gray-400" id="large_size" type="file" onChange={handleDocUpload} ></input>
 
                     <input type="text" {...register('doc')} className='opacity-0' />
                 </div>
+                <div className="mb-3">
+                    <label htmlFor="image" className="form-label">Upload File</label>
+
+                    <label className="block mb-2 text-sm font-medium text-gray-900 " for="large_size">Certifado gas</label>
+                    <input className="block w-auto text-lg text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none  dark:border-gray-600 dark:placeholder-gray-400" id="large_size" type="file" onChange={handleCertifyUpload} ></input>
+
+                    <input type="text" {...register('certify')} className='opacity-0' />
+                </div>
                 <div className="flex justify-between">
-                    <Link to='/tasks' className="bg-red-600 px-5 py-2 rounded-md justify-center cursor-pointer   hover:opacity-80 delay-60">Back</Link>
+                    <Link to='/tasks' className="bg-red-600 px-5 py-2 rounded-md justify-center cursor-pointer   hover:opacity-80 delay-60">Volver</Link>
                     <button className="bg-green-400 text-black px-5 py-2 rounded-md justify-center cursor-pointer   hover:opacity-80 delay-60">
-                        Save
+                       Guardar
                     </button>
 
                 </div>
             </form>
-            <div class="fixed z-50 w-full h-16 max-w-lg -translate-x-1/2 bg-white border border-gray-200 rounded-full bottom-4 left-1/2 dark:bg-backgroundColor dark:border-backgroundColor dark:hover:border-backgroundColor">
-                <div class="grid h-full max-w-lg grid-cols-3 mx-auto">
-                    <Link to="/" className="inline-flex flex-col items-center justify-center px-5 rounded-s-full  hover:bg-gray-50 dark:hover:bg-form group">
-                        <button data-tooltip-target="tooltip-home" type="button">
-                            <svg class="w-8 h-8 mb-1 text-form dark:text-form group-hover:text-blue-600 dark:group-hover:text-backgroundColor" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
-                                <path d="m19.707 9.293-2-2-7-7a1 1 0 0 0-1.414 0l-7 7-2 2a1 1 0 0 0 1.414 1.414L2 10.414V18a2 2 0 0 0 2 2h3a1 1 0 0 0 1-1v-4a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v4a1 1 0 0 0 1 1h3a2 2 0 0 0 2-2v-7.586l.293.293a1 1 0 0 0 1.414-1.414Z" />
-                            </svg>
-                            <span class="sr-only">Home</span>
-                        </button>
-                    </Link>
-                    <div id="tooltip-home" role="tooltip" class="absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-white transition-opacity duration-300 bg-gray-900 rounded-lg shadow-sm opacity-0 tooltip dark:bg-gray-700">
-                        Home
-                        <div class="tooltip-arrow" data-popper-arrow></div>
-                    </div>
-
-
-                    <div class="flex items-center justify-center">
-                        <Link to="/tasks/new" class="inline-flex items-center justify-center w-10 h-10 font-medium bg-blue-600 rounded-full hover:bg-blue-700 group focus:ring-4 focus:ring-blue-300 focus:outline-none dark:focus:ring-blue-800">
-                            <button data-tooltip-target="tooltip-new" type="button">
-                                <svg class="w-4 h-4 text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 18">
-                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 1v16M1 9h16" />
+            <div className="fixed z-50 w-full h-16 max-w-lg -translate-x-1/2 bg-white border border-gray-200 rounded-full bottom-4 left-1/2 dark:bg-form dark:border-backgroundColor dark:hover:border-backgroundColor">
+                    <div className="grid h-full max-w-lg grid-cols-3 mx-auto">
+                        <Link to="/" className="inline-flex flex-col items-center justify-center px-5 rounded-s-full  hover:bg-gray-50 dark:hover:bg-white group">
+                            <button data-tooltip-target="tooltip-home" type="button">
+                                <svg className="w-8 h-8 mb-1 text-form dark:text-white group-hover:text-blue-600 dark:group-hover:text-form" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                                    <path d="m19.707 9.293-2-2-7-7a1 1 0 0 0-1.414 0l-7 7-2 2a1 1 0 0 0 1.414 1.414L2 10.414V18a2 2 0 0 0 2 2h3a1 1 0 0 0 1-1v-4a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v4a1 1 0 0 0 1 1h3a2 2 0 0 0 2-2v-7.586l.293.293a1 1 0 0 0 1.414-1.414Z" />
                                 </svg>
-                                <span class="sr-only">New item</span>
+                                <span className="sr-only">Home</span>
                             </button>
                         </Link>
-                    </div>
-                    <div id="tooltip-new" role="tooltip" class="absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-white transition-opacity duration-300 bg-gray-900 rounded-lg shadow-sm opacity-0 tooltip dark:bg-gray-700">
-                        Create new item
-                        <div class="tooltip-arrow" data-popper-arrow></div>
-                    </div>
-                    <Link to="/tasks" class="inline-flex flex-col items-center justify-center px-5 rounded-e-full hover:bg-gray-50 dark:hover:bg-form group">
-                        <button data-tooltip-target="tooltip-profile" type="button">
-                            <svg class="flex-shrink-0 w-8 h-8  transition duration-75  text-form dark:text-form group-hover:text-blue-600 dark:group-hover:text-backgroundColor" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 18 18">
-                                <path d="M6.143 0H1.857A1.857 1.857 0 0 0 0 1.857v4.286C0 7.169.831 8 1.857 8h4.286A1.857 1.857 0 0 0 8 6.143V1.857A1.857 1.857 0 0 0 6.143 0Zm10 0h-4.286A1.857 1.857 0 0 0 10 1.857v4.286C10 7.169 10.831 8 11.857 8h4.286A1.857 1.857 0 0 0 18 6.143V1.857A1.857 1.857 0 0 0 16.143 0Zm-10 10H1.857A1.857 1.857 0 0 0 0 11.857v4.286C0 17.169.831 18 1.857 18h4.286A1.857 1.857 0 0 0 8 16.143v-4.286A1.857 1.857 0 0 0 6.143 10Zm10 0h-4.286A1.857 1.857 0 0 0 10 11.857v4.286c0 1.026.831 1.857 1.857 1.857h4.286A1.857 1.857 0 0 0 18 16.143v-4.286A1.857 1.857 0 0 0 16.143 10Z" />
-                            </svg>
-                            <span class="sr-only">Profile</span>
-                        </button>
-                    </Link>
-                    <div id="tooltip-profile" role="tooltip" class="absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-white transition-opacity duration-300 bg-gray-900 rounded-lg shadow-sm opacity-0 tooltip dark:bg-gray-700">
-                        Profile
-                        <div class="tooltip-arrow" data-popper-arrow></div>
+                        <div id="tooltip-home" role="tooltip" className="absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-white transition-opacity duration-300 bg-gray-900 rounded-lg shadow-sm opacity-0 tooltip dark:bg-gray-700">
+                            Home
+                            <div className="tooltip-arrow" data-popper-arrow></div>
+                        </div>
+
+
+                        <div className="flex items-center justify-center">
+                            <Link to="/tasks/new" className="inline-flex items-center justify-center w-10 h-10 font-medium bg-blue-600 rounded-full hover:bg-blue-700 group focus:ring-4 focus:ring-blue-300 focus:outline-none dark:focus:ring-blue-800">
+                                <button data-tooltip-target="tooltip-new" type="button">
+                                    <svg className="w-4 h-4 text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 18">
+                                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 1v16M1 9h16" />
+                                    </svg>
+                                    <span className="sr-only">New item</span>
+                                </button>
+                            </Link>
+                        </div>
+                        <div id="tooltip-new" role="tooltip" className="absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-white transition-opacity duration-300 bg-gray-900 rounded-lg shadow-sm opacity-0 tooltip dark:bg-gray-700">
+                            Create new item
+                            <div className="tooltip-arrow" data-popper-arrow></div>
+                        </div>
+                        <Link to="/tasks" className="inline-flex flex-col items-center justify-center px-5 rounded-e-full hover:bg-gray-50 dark:hover:bg-white group">
+                            <button data-tooltip-target="tooltip-profile" type="button">
+                                <svg className="flex-shrink-0 w-8 h-8  transition duration-75  text-form dark:text-white group-hover:text-blue-600 dark:group-hover:text-form" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 18 18">
+                                    <path d="M6.143 0H1.857A1.857 1.857 0 0 0 0 1.857v4.286C0 7.169.831 8 1.857 8h4.286A1.857 1.857 0 0 0 8 6.143V1.857A1.857 1.857 0 0 0 6.143 0Zm10 0h-4.286A1.857 1.857 0 0 0 10 1.857v4.286C10 7.169 10.831 8 11.857 8h4.286A1.857 1.857 0 0 0 18 6.143V1.857A1.857 1.857 0 0 0 16.143 0Zm-10 10H1.857A1.857 1.857 0 0 0 0 11.857v4.286C0 17.169.831 18 1.857 18h4.286A1.857 1.857 0 0 0 8 16.143v-4.286A1.857 1.857 0 0 0 6.143 10Zm10 0h-4.286A1.857 1.857 0 0 0 10 11.857v4.286c0 1.026.831 1.857 1.857 1.857h4.286A1.857 1.857 0 0 0 18 16.143v-4.286A1.857 1.857 0 0 0 16.143 10Z" />
+                                </svg>
+                                <span className="sr-only">Profile</span>
+                            </button>
+                        </Link>
+                        <div id="tooltip-profile" role="tooltip" className="absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-white transition-opacity duration-300 bg-gray-900 rounded-lg shadow-sm opacity-0 tooltip dark:bg-gray-700">
+                            Profile
+                            <div className="tooltip-arrow" data-popper-arrow></div>
+                        </div>
                     </div>
                 </div>
-            </div>
             
         </>
     )

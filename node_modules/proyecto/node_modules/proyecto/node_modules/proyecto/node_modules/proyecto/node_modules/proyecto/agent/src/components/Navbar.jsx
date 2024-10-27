@@ -19,7 +19,7 @@ function Navbar() {
         <nav className="w-full sticky top-0  shadow-lg shadow-blue-300 flex justify-between py-3 px-20 z-50">
             <Link to='/'>
                 <h1 className="font-custom text-form text-7xl font-extrabold cursor-pointer hover:opacity-90 hover:text-blue-600">
-                    + HEGEOR ❏
+                    + Easify ❏
                 </h1>
             </Link>
 
@@ -47,13 +47,13 @@ function Navbar() {
                     <>
                         <li>
                             <Link to='/login'
-                                className="font-custom font-extrabold bg-form shadow-md px-4 py-4 rounded-md text-backgroundColor hover:bg-backgroundColor hover:text-form">
+                                className="flex font-sans font-extrabold bg-form shadow-md px-4 py-4 rounded-md text-backgroundColor hover:bg-blue-600 hover:text-white">
                                 Inicio Sesión
                             </Link>
                         </li>
                         <li>
                             <Link to='/register'
-                                className="font-custom font-extrabold bg-form shadow-md px-4 py-4 rounded-md text-backgroundColor hover:bg-green-400">
+                                className="flex font-sans font-extrabold bg-form shadow-md px-4 py-4 rounded-md text-backgroundColor hover:text-white hover:bg-green-400">
                                 Registrate
                             </Link>
                         </li>

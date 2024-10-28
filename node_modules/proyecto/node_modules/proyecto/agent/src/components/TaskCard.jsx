@@ -18,18 +18,14 @@ function TaskDirection({ task }) {
     };
 
     return (
-        <><div>
-            <br></br>
 
 
 
-            <button
-                type="button"
-                className=" py-2 px-4 ms-2 text-sm font-medium text-gray-900 focus:outline-none bg-form rounded-lg border border-backgroundColor  hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700  dark:text-backgroundColor dark:border-backgroundColor dark:hover:text-form dark:hover:bg-backgroundColor "
-                onClick={handleClick}
-            >
-                {task.municipio + ': ' + task.barrio + ', ' + task.direccionHogar}
-            </button></div></>
+        <li>
+            <a onClick={handleClick} class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-blue-700 dark:hover:text-white duration-200">{task.municipio + ': ' + task.barrio + ', ' + task.direccionHogar}</a>
+        </li>
+
+
     );
 
 
@@ -38,7 +34,7 @@ function TaskDirection({ task }) {
 
 
 
-export function TaskFilter({  }) {
+export function TaskFilter({ }) {
     /*
     ---------------------
     Buscador de tarjetas
@@ -63,7 +59,12 @@ export function TaskFilter({  }) {
         results = ""
         console.log(results)
     };
+    // Estado para controlar el dropdown
+    const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
+    const toggleDropdown = () => {
+        setIsDropdownOpen(prev => !prev);
+    };
     const handleChange = (event) => {
 
         setInputValue(results); // Actualiza el estado con el valor del input
@@ -89,6 +90,7 @@ export function TaskFilter({  }) {
         console.log('Value saved in variable Sub:', inputValue);
         // Puedes usar la variable aquí o en otros lugares
     }
+
 
     return (
 
@@ -140,10 +142,10 @@ export function TaskFilter({  }) {
                         <br></br>
 
                         <div className="w-full max-w-sm bg-form outline outline-2 rounded-lg shadow-md shadow-white  ">
-                            
+
                             <div className="flex flex-col items-center pb-10 bg-form">
-                                
-                                
+
+
 
 
                                 <br></br>
@@ -154,17 +156,35 @@ export function TaskFilter({  }) {
 
                                     <h5 className="mb-1 text-lg font-bold text-backgroundColor  font-sans ">Filtros</h5>
                                     <br></br>
+
+
+                                    <div
+                                        onClick={toggleDropdown}
+                                        className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center"
+                                    >
+                                        Casas
+                                        <svg className="w-2.5 h-2.5 ms-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
+                                            <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="m1 1 4 4 4-4" />
+                                        </svg>
+                                    </div>
+
+                                    {isDropdownOpen && (
+                                        <><br></br><br></br><div className="z-10 bg-white divide-y divide-gray-100 rounded-lg shadow w-44 ">
+                                            <ul className="py-2 text-sm text-gray-700 ">
+                                                {tasks.map(task => (
+                                                    <TaskDirection task={task} key={task._id} />
+                                                ))}
+                                            </ul>
+                                        </div></>
+                                    )}
+                                    <br></br>
+                                    <br></br>
                                     <button type="button" value={{ inputValue: true }} onClick={handleReset} className=" py-2 px-4 ms-2 text-sm font-medium text-gray-900 focus:outline-none bg-form rounded-lg border border-backgroundColor  hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700  dark:text-backgroundColor dark:border-backgroundColor dark:hover:text-form dark:hover:bg-backgroundColor ">Ver todas las tarjetas </button>
                                     <br></br>
-                                    {tasks.map(task => (
-
-                                        <TaskDirection task={task} key={task._id} />
-
-                                    ))}
                                     <br></br>
-                                    <div className="relative">
+                                    <div className="flex justify-center">
 
-                                        <button type="button" value={{ inputValue: true }} onClick={handleChange} className=" py-2 px-4 ms-2 text-sm font-medium text-gray-900 focus:outline-none bg-backgroundColor rounded-lg border border-backgroundColor  hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700  dark:text-form dark:border-backgroundColor dark:hover:text-white dark:hover:bg-green-500 "> Aplicar filtros</button>
+                                        <button type="button" value={{ inputValue: true }} onClick={handleChange} className=" py-2 px-4 ms-2 text-sm font-medium text-gray-900 focus:outline-none bg-backgroundColor rounded-lg border border-backgroundColor  hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700  dark:text-form dark:border-backgroundColor dark:hover:text-white dark:hover:bg-green-500 ">Aplicar</button>
 
 
                                     </div>
@@ -198,12 +218,12 @@ export function TaskFilter({  }) {
 function TaskCard({ task }) {
     const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
     const [isDetailModalOpen, setIsDetailModalOpen] = useState(false);
-
+    const { user } = useAuth();
     const handleDeleteClick = () => {
         setIsDeleteModalOpen(true);
     };
 
-  
+
 
     const cancelDelete = () => {
         setIsDeleteModalOpen(false);
@@ -216,7 +236,7 @@ function TaskCard({ task }) {
     const closeDetailModal = () => {
         setIsDetailModalOpen(false);
     };
-   
+
 
     if (results == "") {
 
@@ -226,7 +246,8 @@ function TaskCard({ task }) {
 
 
             <>
-                <div className="w-auto h-auto max-w-8xl bg-white rounded-lg hover:outline hover:outline-sky-400 hover:outline-2 hover:shadow-2xl hover:shadow-blue-400 hover:bg-white hover:scale-105 duration-200">
+                <div className="w-auto h-auto max-w-8xl bg-white rounded-lg hover:outline hover:outline-sky-400 hover:outline-2 hover:shadow-2xl hover:shadow-blue-400 hover:bg-white duration-200">
+
                     <img className="rounded-t-lg w-full h-fit aspect-video" src={task.imagen} alt="" />
                     {/* Botón para abrir el modal de detalles */}
                     <button
@@ -259,18 +280,20 @@ function TaskCard({ task }) {
                         <br></br>
 
                         <div className="flex justify-between items-center px-10 ">
-                            <Link to={`/tasks/${task._id}`} className=" inline-flex items-center px-2 py-2 text-sm font-medium text-center text-form border border-form rounded-lg dark:hover:bg-form dark:hover:text-backgroundColor">
-                                Actualizar
+                            <Link to={`/tasks/${task._id}`} class="relative inline-flex items-center justify-center p-0.5 mb-2 me-2 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-cyan-500 to-blue-500 group-hover:from-cyan-500 group-hover:to-blue-500 hover:text-white  focus:ring-4 focus:outline-none focus:ring-cyan-200 dark:focus:ring-cyan-800">
+                                <span class="relative px-5 py-2.5 transition-all ease-in duration-75 bg-white rounded-md group-hover:bg-opacity-0">
+                                    Actualizar
+                                </span>
+
 
                             </Link>
 
-                            <button
-                                className="inline-flex items-center px-2 py-2 text-sm font-medium text-center text-white bg-red-500 rounded-lg hover:opacity-70"
-                                onClick={handleDeleteClick}
-                            >
-                                Eliminar
-
+                            <button class="relative inline-flex items-center justify-center p-0.5 mb-2 me-2 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-pink-500 to-orange-400 group-hover:from-pink-500 group-hover:to-orange-400 hover:text-white  focus:ring-4 focus:outline-none focus:ring-pink-200 dark:focus:ring-pink-800" onClick={handleDeleteClick}>
+                                <span class="relative px-5 py-2.5 transition-all ease-in duration-75 bg-white rounded-md group-hover:bg-opacity-0">
+                                    Eliminar
+                                </span>
                             </button>
+
 
 
                         </div>
@@ -292,8 +315,17 @@ function TaskCard({ task }) {
                                     {task.barrio + ', ' + task.direccionHogar}
                                 </h2>
                                 <br />
-                                <p className="text-2xl font-bold text-form mt-2">¡IMPORTANTE!</p>
-                                <p className="text-lg font-bold text-blue-600 mt-2">Esta acción no se puede deshacer.</p>
+
+                                <div class="flex items-center p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50 " role="alert">
+                                    <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                                        <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z" />
+                                    </svg>
+                                    <span class="sr-only">Info</span>
+                                    <div>
+                                        <span class="font-medium">¡IMPORTANTE!!</span> Esta acción no se puede deshacer.
+                                    </div>
+                                </div>
+
                                 <div className="mt-4 flex justify-end space-x-3 ">
                                     <button
                                         className="text-lg px-4 py-2 bg-gray-300 text-gray-700 rounded-lg hover:bg-gray-400"
@@ -318,92 +350,101 @@ function TaskCard({ task }) {
                     {isDetailModalOpen && (
                         <div className="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50">
 
-                            <div className="bg-form rounded-lg shadow-lg p-4 w-full max-w-4xl h-auto overflow-y-hidden">
-                                <div className="max-h-[70vh] overflow-y-auto bg-custom-gradient-two">
-                                   
+                            <div className="bg-form rounded-lg shadow-lg p-4 w-full max-w-5xl h-auto overflow-y-hidden">
+
+                                <div className="max-h-[70vh] overflow-y-auto bg-pink-200">
+                                    <img src="dog.png" alt="" className="relative top-14  "
+                                        style={{ width: '500px', height: 'auto' }} />
 
                                     <div className="bg-form h-80">
                                         <br />
                                         <br />
                                         <br />
-                                        <h1 class="mb-4 text-3xl font-extrabold text-white md:text-5xl lg:text-8xl text-center">¡Descubre cada <span class="text-transparent bg-clip-text bg-gradient-to-r to-yellow-600 from-yellow-500"> detalle </span>!</h1>
+                                        <h1 class="mb-4 text-3xl font-extrabold text-white md:text-5xl lg:text-7xl text-center"><span class="text-transparent bg-clip-text bg-gradient-to-r to-yellow-600 from-yellow-500">¡Hola, {user.username}!  </span> </h1><h1 class="mb-4 text-5xl font-extrabold text-white md:text-5xl lg:text-5xl text-center">¡Descubre todo lo que esta propiedad tiene para ofrecerte!</h1>
                                     </div>
-                                    <br />
-                                    <br />
-                                    <h5 className="font-extrabold  mb-2 text-6xl tracking-tight text-form text-justify px-10">{task.municipio + ', ' + task.departamento}</h5>
-                                    <br />
-                                    <h5 className="font-sans mb-2 text-3xl font-bold tracking-tight text-form text-justify px-10">{task.barrio + ', ' + task.direccionHogar}</h5>
-                                    <hr className="h-px my-8 bg-white border-0 dark:bg-form px-10" />
+                                    <div className="bg-modal h-auto">
+                                        <br />
+                                        <br />
 
-                                    <h1 className="font-sans font-extrabold mb-2 text-4xl tracking-tight text-form text-justify px-10">Propietario</h1>
-                                    <br />
-                                    <h1 className="font-sans font-extrabold mb-2 text-2xl tracking-tight text-form text-justify px-10">{task.propietario}</h1>
-                                    <br />
-                                    <h1 className="font-sans font-extrabold mb-2 text-2xl tracking-tight text-blue-600 text-justify px-10">{'Número: ' + task.propietarioNumero}</h1>
-                                    <h1 className="font-sans font-extrabold mb-2 text-2xl tracking-tight text-blue-600 text-justify px-10">{'Correo: ' + task.propietarioEmail}</h1>
-                                    <hr className="h-px my-8 bg-gray-200 border-0 dark:bg-form  px-10" />
+                                        <h5 className="font-extrabold  mb-2 text-8xl tracking-tight text-white text-justify px-10">{task.municipio + ', ' + task.departamento}</h5>
 
-                                    {/* Inquilino */}
-                                    <h1 className="font-sans font-extrabold mb-2 text-4xl tracking-tight text-form text-justify px-10">Inquilino</h1>
-                                    <br />
-                                    <h1 className="font-sans font-extrabold mb-2 text-2xl tracking-tight text-form text-justify px-10">{task.inquilinos}</h1>
-                                    <br />
-                                    <h1 className="font-sans font-extrabold mb-2 text-2xl tracking-tight text-blue-600 text-justify px-10">{'Número: ' + task.inquilinosNumero}</h1>
-                                    <h1 className="font-sans font-extrabold mb-2 text-2xl tracking-tight text-blue-600 text-justify px-10">{'Correo: ' + task.inquilinosEmail}</h1>
-                                    <hr className="h-px my-8 bg-gray-200 border-0 dark:bg-form  px-10" />
-                                    {/* Descripción */}
-                                    <h1 className="font-sans font-extrabold mb-2 text-4xl tracking-semibold text-form text-justify px-10">Descripción</h1>
-                                    <br />
-                                    <p className="font-sans mb-3 font-light text-2xl text-form text-justify px-10">{task.historial}</p>
-                                    <br />
-                                    <h1 className="font-sans font-extrabold mb-2 text-4xl  tracking-tight text-form text-justify px-10">Documento asignado </h1>
-                                    <br></br>
-                                    <div className="  mb-2 text-5xl  tracking-tight px-10 rounded-lg">
-                                        <iframe
+                                        <h5 className="font-sans mb-2 text-4xl font-bold tracking-tight text-white text-justify px-10">{task.barrio + ', ' + task.direccionHogar}</h5>
+                                        <h5 className="font-sans mb-2 text-2xl font-normal tracking-tight text-white text-justify px-10">{task.propietario}</h5>
+                                        <hr className="h-px my-8 bg-white border-0 px-10" />
+                                        {/* Descripción */}
+                                        <h1 className="font-sans font-extrabold mb-2 text-6xl tracking-semibold text-white text-justify px-10">Descripción</h1>
+                                        <br />
+                                        <p className="font-sans mb-3 font-light text-2xl text-white text-justify px-10">{task.historial}</p>
+                                        <br />
 
-                                            src={task.doc}
-                                            width="100%"
-                                            height="640"
-                                            title="Vista previa del documento"
-                                            style={{
+                                        <h1 className="underline font-sans font-extrabold mb-2 text-5xl tracking-tight text-white text-justify px-10">Propietario</h1>
+                                        <br />
+                                        <h1 className="font-sans font-bold mb-2 text-2xl tracking-tight text-white text-justify px-10">{task.propietario}</h1>
+                                        <br />
+                                        <h1 className="font-sans font-extrabold mb-2 text-2xl tracking-tight text-blue-600 text-justify px-10">{'Número: ' + task.propietarioNumero}</h1>
+                                        <h1 className="font-sans font-extrabold mb-2 text-2xl tracking-tight text-blue-600 text-justify px-10">{'Correo: ' + task.propietarioEmail}</h1>
+                                        <hr className="h-px my-8 bg-gray-200 border-0  px-10" />
 
-                                                border: "solid",
-                                                borderRadius: "2%",
-                                                imageRendering: 'auto',
-                                                willChange: 'transform',
-                                                backfaceVisibility: 'hidden',
-                                                filter: 'none',
-                                            }}
+                                        {/* Inquilino */}
+                                        <h1 className="underline font-sans font-extrabold mb-2 text-5xl tracking-tight text-white text-justify px-10">Inquilino</h1>
+                                        <br />
+                                        <h1 className="font-sans font-extrabold mb-2 text-2xl tracking-tight text-white text-justify px-10">{task.inquilinos}</h1>
+                                        <br />
+                                        <h1 className="font-sans font-extrabold mb-2 text-2xl tracking-tight text-blue-600 text-justify px-10">{'Número: ' + task.inquilinosNumero}</h1>
+                                        <h1 className="font-sans font-extrabold mb-2 text-2xl tracking-tight text-blue-600 text-justify px-10">{'Correo: ' + task.inquilinosEmail}</h1>
+                                        <br></br>
+                                        <div className="flex justify-center">
+                                            <img className="rounded-t-lg max-w-5xl h-fit aspect-video " src={task.imagen} alt="" />
+                                        </div>
+                                        <br></br>
+                                        <h1 className="font-sans font-extrabold mb-2 text-4xl  tracking-tight text-white text-justify px-10">Documento asignado </h1>
+                                        <br></br>
 
-                                        />
+                                        <div className="  mb-2 text-5xl tracking-tight px-10 rounded-lg flex justify-center">
+                                            <iframe
+
+                                                src={task.doc}
+                                                width="90%"
+                                                height="640"
+                                                title="Vista previa del documento"
+                                                style={{
+                                                    border: "solid",
+                                                    borderRadius: "2%",
+                                                    imageRendering: 'auto',
+                                                    willChange: 'transform',
+                                                    backfaceVisibility: 'hidden',
+                                                    filter: 'none',
+                                                    margin: "0 auto", // Asegura que el iframe tenga un margen automático
+                                                }}
+
+                                            />
+                                        </div>
+                                        <br></br>
+                                        <h1 className="font-sans font-extrabold mb-2 text-5xl  tracking-tight text-white text-justify px-10">Certificado del gas </h1>
+                                        <br></br>
+                                        <div className="mb-2 text-5xl tracking-tight px-10 rounded-lg flex justify-center">
+                                            <iframe
+                                                src={task.certify}
+                                                width="90%"
+                                                height="640"
+                                                title="Vista previa del documento"
+                                                style={{
+                                                    border: "solid",
+                                                    borderRadius: "2%",
+                                                    imageRendering: 'auto',
+                                                    willChange: 'transform',
+                                                    backfaceVisibility: 'hidden',
+                                                    filter: 'none',
+                                                    margin: "0 auto", // Asegura que el iframe tenga un margen automático
+                                                }}
+                                            />
+                                        </div>
+                                        <br></br>
+
+
+
                                     </div>
-                                    <br></br>
-                                    <h1 className="font-sans font-extrabold mb-2 text-5xl  tracking-tight text-form text-justify px-10">Certificado del gas </h1>
-                                    <br></br>
-                                    <div className="  mb-2 text-5xl  tracking-tight px-10 rounded-lg">
-                                        <iframe
-
-                                            src={task.certify}
-                                            width="100%"
-                                            height="640"
-                                            title="Vista previa del documento"
-                                            style={{
-
-                                                border: "solid",
-                                                borderRadius: "2%",
-                                                imageRendering: 'auto',
-                                                willChange: 'transform',
-                                                backfaceVisibility: 'hidden',
-                                                filter: 'none',
-                                            }}
-                                        />
-                                    </div>
-                                    <br></br>
-
-
-
                                 </div>
-
                                 {/* Botón de cerrar */}
                                 <div className="mt-4 flex justify-end">
                                     <button
@@ -484,6 +525,7 @@ function TaskCard({ task }) {
 
             <>
                 <div className="w-auto h-auto max-w-8xl bg-white rounded-lg hover:outline hover:outline-sky-400 hover:outline-2 hover:shadow-2xl hover:shadow-blue-400 hover:bg-white duration-200">
+
                     <img className="rounded-t-lg w-full h-fit aspect-video" src={task.imagen} alt="" />
                     {/* Botón para abrir el modal de detalles */}
                     <button
@@ -494,8 +536,8 @@ function TaskCard({ task }) {
 
                     </button>
                     <div className="p-2">
-                        <h5 className="font-extrabold mb-2 text-3xl tracking-tight text-form text-justify px-10">{task.municipio + ', ' + task.departamento}</h5>
-                        <h5 className="font-sans mb-2 text-3xl font-bold tracking-tight text-form text-justify px-10">{task.barrio + ', ' + task.direccionHogar}</h5>
+                        <h5 className="font-extrabold mb-2 text-4xl tracking-tight text-form text-justify px-10">{task.municipio + ', ' + task.departamento}</h5>
+                        <h5 className="font-sans mb-2 text-1xl font-bold tracking-tight text-form text-justify px-10">{task.barrio + ', ' + task.direccionHogar}</h5>
                         <hr className="h-px my-8 bg-gray-200 border-0 dark:bg-gray-700 px-10" />
 
                         {/* Propietario */}
@@ -516,18 +558,20 @@ function TaskCard({ task }) {
                         <br></br>
 
                         <div className="flex justify-between items-center px-10 ">
-                            <Link to={`/tasks/${task._id}`} className=" inline-flex items-center px-2 py-2 text-sm font-medium text-center text-form border border-form rounded-lg dark:hover:bg-form dark:hover:text-backgroundColor">
-                                Actualizar
+                            <Link to={`/tasks/${task._id}`} class="relative inline-flex items-center justify-center p-0.5 mb-2 me-2 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-cyan-500 to-blue-500 group-hover:from-cyan-500 group-hover:to-blue-500 hover:text-white  focus:ring-4 focus:outline-none focus:ring-cyan-200 dark:focus:ring-cyan-800">
+                                <span class="relative px-5 py-2.5 transition-all ease-in duration-75 bg-white rounded-md group-hover:bg-opacity-0">
+                                    Actualizar
+                                </span>
+
 
                             </Link>
 
-                            <button
-                                className="inline-flex items-center px-2 py-2 text-sm font-medium text-center text-white bg-red-500 rounded-lg hover:opacity-70"
-                                onClick={handleDeleteClick}
-                            >
-                                Eliminar
-
+                            <button class="relative inline-flex items-center justify-center p-0.5 mb-2 me-2 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-pink-500 to-orange-400 group-hover:from-pink-500 group-hover:to-orange-400 hover:text-white  focus:ring-4 focus:outline-none focus:ring-pink-200 dark:focus:ring-pink-800" onClick={handleDeleteClick}>
+                                <span class="relative px-5 py-2.5 transition-all ease-in duration-75 bg-white rounded-md group-hover:bg-opacity-0">
+                                    Eliminar
+                                </span>
                             </button>
+
 
 
                         </div>
@@ -549,8 +593,17 @@ function TaskCard({ task }) {
                                     {task.barrio + ', ' + task.direccionHogar}
                                 </h2>
                                 <br />
-                                <p className="text-2xl font-bold text-form mt-2">¡IMPORTANTE!</p>
-                                <p className="text-lg font-bold text-blue-600 mt-2">Esta acción no se puede deshacer.</p>
+
+                                <div class="flex items-center p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50 " role="alert">
+                                    <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                                        <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z" />
+                                    </svg>
+                                    <span class="sr-only">Info</span>
+                                    <div>
+                                        <span class="font-medium">¡IMPORTANTE!!</span> Esta acción no se puede deshacer.
+                                    </div>
+                                </div>
+
                                 <div className="mt-4 flex justify-end space-x-3 ">
                                     <button
                                         className="text-lg px-4 py-2 bg-gray-300 text-gray-700 rounded-lg hover:bg-gray-400"
@@ -575,87 +628,101 @@ function TaskCard({ task }) {
                     {isDetailModalOpen && (
                         <div className="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50">
 
-                            <div className="bg-form rounded-lg shadow-lg p-4 w-full max-w-8xl h-auto overflow-y-hidden">
-                                <div className="max-h-[70vh] overflow-y-auto bg-white">
-                                    <img src="https://firebasestorage.googleapis.com/v0/b/myapp-80b3c.appspot.com/o/images%2Fimage.png?alt=media&token=90f2d678-f08a-40da-822b-4d825146cc27" alt="" className="relative top-24 aspect-video "
-                                        style={{ width: '300px', height: 'auto' }} />
+                            <div className="bg-form rounded-lg shadow-lg p-4 w-full max-w-5xl h-auto overflow-y-hidden">
+
+                                <div className="max-h-[70vh] overflow-y-auto bg-pink-200">
+                                    <img src="dog.png" alt="" className="relative top-14  "
+                                        style={{ width: '500px', height: 'auto' }} />
 
                                     <div className="bg-form h-80">
                                         <br />
                                         <br />
                                         <br />
-                                        <h1 class="mb-4 text-3xl font-extrabold text-white md:text-5xl lg:text-8xl text-center"> ¡Descubre cada detalle! </h1><h1 class="mb-4 text-3xl font-extrabold text-white md:text-5xl lg:text-5xl text-center">Con<span class="text-transparent bg-clip-text bg-gradient-to-r to-yellow-600 from-yellow-500"> alegría </span>te mostramos todo sobre tu casa</h1>
+                                        <h1 class="mb-4 text-3xl font-extrabold text-white md:text-5xl lg:text-7xl text-center"><span class="text-transparent bg-clip-text bg-gradient-to-r to-yellow-600 from-yellow-500">¡Hola, {user.username}!  </span> </h1><h1 class="mb-4 text-5xl font-extrabold text-white md:text-5xl lg:text-5xl text-center">¡Descubre todo lo que esta propiedad tiene para ofrecerte!</h1>
                                     </div>
-                                    <br />
-                                    <br />
-                                    <h5 className="font-extrabold  mb-2 text-8xl tracking-tight text-form text-justify px-10">{task.municipio + ', ' + task.departamento}</h5>
-                                    <br />
-                                    <h5 className="font-sans mb-2 text-4xl font-bold tracking-tight text-form text-justify px-10">{task.barrio + ', ' + task.direccionHogar}</h5>
-                                    <hr className="h-px my-8 bg-white border-0 dark:bg-form px-10" />
+                                    <div className="bg-modal h-auto">
+                                        <br />
+                                        <br />
 
-                                    <h1 className="font-sans font-extrabold mb-2 text-5xl tracking-tight text-form text-justify px-10">Propietario</h1>
-                                    <h1 className="font-sans font-extrabold mb-2 text-3xl tracking-tight text-form text-justify px-10">{task.propietario}</h1>
-                                    <h1 className="font-sans font-extrabold mb-2 text-2xl tracking-tight text-blue-600 text-justify px-10">{'Número: ' + task.propietarioNumero}</h1>
-                                    <h1 className="font-sans font-extrabold mb-2 text-2xl tracking-tight text-blue-600 text-justify px-10">{'Correo: ' + task.propietarioEmail}</h1>
-                                    <hr className="h-px my-8 bg-gray-200 border-0 dark:bg-form  px-10" />
+                                        <h5 className="font-extrabold  mb-2 text-8xl tracking-tight text-white text-justify px-10">{task.municipio + ', ' + task.departamento}</h5>
 
-                                    {/* Inquilino */}
-                                    <h1 className="font-sans font-extrabold mb-2 text-5xl tracking-tight text-form text-justify px-10">Inquilino</h1>
-                                    <h1 className="font-sans font-extrabold mb-2 text-3xl tracking-tight text-form text-justify px-10">{task.inquilinos}</h1>
-                                    <h1 className="font-sans font-extrabold mb-2 text-2xl tracking-tight text-blue-600 text-justify px-10">{'Número: ' + task.inquilinosNumero}</h1>
-                                    <h1 className="font-sans font-extrabold mb-2 text-2xl tracking-tight text-blue-600 text-justify px-10">{'Correo: ' + task.inquilinosEmail}</h1>
-                                    <hr className="h-px my-8 bg-gray-200 border-0 dark:bg-form  px-10" />
-                                    {/* Descripción */}
-                                    <h1 className="font-sans font-extrabold mb-2 text-5xl tracking-semibold text-form text-justify px-10">Descripción</h1>
-                                    <p className="font-sans mb-3 font-light text-2xl text-form text-justify px-10">{task.historial}</p>
-                                    <h1 className="font-sans font-extrabold mb-2 text-5xl  tracking-tight text-form text-justify px-10">Documento asignado </h1>
-                                    <br></br>
-                                    <div className="  mb-2 text-5xl  tracking-tight px-10 rounded-lg">
-                                        <iframe
+                                        <h5 className="font-sans mb-2 text-4xl font-bold tracking-tight text-white text-justify px-10">{task.barrio + ', ' + task.direccionHogar}</h5>
+                                        <h5 className="font-sans mb-2 text-2xl font-normal tracking-tight text-white text-justify px-10">{task.propietario}</h5>
+                                        <hr className="h-px my-8 bg-white border-0 px-10" />
+                                        {/* Descripción */}
+                                        <h1 className="font-sans font-extrabold mb-2 text-6xl tracking-semibold text-white text-justify px-10">Descripción</h1>
+                                        <br />
+                                        <p className="font-sans mb-3 font-light text-2xl text-white text-justify px-10">{task.historial}</p>
+                                        <br />
 
-                                            src={task.doc}
-                                            width="100%"
-                                            height="640"
-                                            title="Vista previa del documento"
-                                            style={{
+                                        <h1 className="underline font-sans font-extrabold mb-2 text-5xl tracking-tight text-white text-justify px-10">Propietario</h1>
+                                        <br />
+                                        <h1 className="font-sans font-bold mb-2 text-2xl tracking-tight text-white text-justify px-10">{task.propietario}</h1>
+                                        <br />
+                                        <h1 className="font-sans font-extrabold mb-2 text-2xl tracking-tight text-blue-600 text-justify px-10">{'Número: ' + task.propietarioNumero}</h1>
+                                        <h1 className="font-sans font-extrabold mb-2 text-2xl tracking-tight text-blue-600 text-justify px-10">{'Correo: ' + task.propietarioEmail}</h1>
+                                        <hr className="h-px my-8 bg-gray-200 border-0  px-10" />
 
-                                                border: "solid",
-                                                borderRadius: "2%",
-                                                imageRendering: 'auto',
-                                                willChange: 'transform',
-                                                backfaceVisibility: 'hidden',
-                                                filter: 'none',
-                                            }}
+                                        {/* Inquilino */}
+                                        <h1 className="underline font-sans font-extrabold mb-2 text-5xl tracking-tight text-white text-justify px-10">Inquilino</h1>
+                                        <br />
+                                        <h1 className="font-sans font-extrabold mb-2 text-2xl tracking-tight text-white text-justify px-10">{task.inquilinos}</h1>
+                                        <br />
+                                        <h1 className="font-sans font-extrabold mb-2 text-2xl tracking-tight text-blue-600 text-justify px-10">{'Número: ' + task.inquilinosNumero}</h1>
+                                        <h1 className="font-sans font-extrabold mb-2 text-2xl tracking-tight text-blue-600 text-justify px-10">{'Correo: ' + task.inquilinosEmail}</h1>
+                                        <br></br>
+                                        <div className="flex justify-center">
+                                            <img className="rounded-t-lg max-w-5xl h-fit aspect-video " src={task.imagen} alt="" />
+                                        </div>
+                                        <br></br>
+                                        <h1 className="font-sans font-extrabold mb-2 text-4xl  tracking-tight text-white text-justify px-10">Documento asignado </h1>
+                                        <br></br>
 
-                                        />
+                                        <div className="  mb-2 text-5xl tracking-tight px-10 rounded-lg flex justify-center">
+                                            <iframe
+
+                                                src={task.doc}
+                                                width="90%"
+                                                height="640"
+                                                title="Vista previa del documento"
+                                                style={{
+                                                    border: "solid",
+                                                    borderRadius: "2%",
+                                                    imageRendering: 'auto',
+                                                    willChange: 'transform',
+                                                    backfaceVisibility: 'hidden',
+                                                    filter: 'none',
+                                                    margin: "0 auto", // Asegura que el iframe tenga un margen automático
+                                                }}
+
+                                            />
+                                        </div>
+                                        <br></br>
+                                        <h1 className="font-sans font-extrabold mb-2 text-5xl  tracking-tight text-white text-justify px-10">Certificado del gas </h1>
+                                        <br></br>
+                                        <div className="mb-2 text-5xl tracking-tight px-10 rounded-lg flex justify-center">
+                                            <iframe
+                                                src={task.certify}
+                                                width="90%"
+                                                height="640"
+                                                title="Vista previa del documento"
+                                                style={{
+                                                    border: "solid",
+                                                    borderRadius: "2%",
+                                                    imageRendering: 'auto',
+                                                    willChange: 'transform',
+                                                    backfaceVisibility: 'hidden',
+                                                    filter: 'none',
+                                                    margin: "0 auto", // Asegura que el iframe tenga un margen automático
+                                                }}
+                                            />
+                                        </div>
+                                        <br></br>
+
+
+
                                     </div>
-                                    <br></br>
-                                    <h1 className="font-sans font-extrabold mb-2 text-5xl  tracking-tight text-form text-justify px-10">Certificado del gas </h1>
-                                    <br></br>
-                                    <div className="  mb-2 text-5xl  tracking-tight px-10 rounded-lg">
-                                        <iframe
-
-                                            src={task.certify}
-                                            width="100%"
-                                            height="640"
-                                            title="Vista previa del documento"
-                                            style={{
-
-                                                border: "solid",
-                                                borderRadius: "2%",
-                                                imageRendering: 'auto',
-                                                willChange: 'transform',
-                                                backfaceVisibility: 'hidden',
-                                                filter: 'none',
-                                            }}
-                                        />
-                                    </div>
-                                    <br></br>
-
-
-
                                 </div>
-
                                 {/* Botón de cerrar */}
                                 <div className="mt-4 flex justify-end">
                                     <button

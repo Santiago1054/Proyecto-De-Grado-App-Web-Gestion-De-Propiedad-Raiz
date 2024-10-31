@@ -27,7 +27,7 @@ function App() {
                 <Navbar />
                 
                 {/* Contenido desplazable con todo el ancho y centrado */}
-                <main className="flex-1 overflow-y-auto flex justify-center px-10 w-full py-20 ">
+                <main className="flex-1 custom-scrollbar flex justify-center px-10 w-full py-20 ">
                   <div className="w-full max-w-8xl"> {/* Limitar el ancho máximo para centrar el contenido */}
                     <Routes>
                       <Route path="/" element={<HomePage />} />

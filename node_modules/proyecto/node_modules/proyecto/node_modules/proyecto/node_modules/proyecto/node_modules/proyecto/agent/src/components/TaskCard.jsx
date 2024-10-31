@@ -145,16 +145,15 @@ export function TaskFilter({ }) {
                                             <>
                                                 <br></br>
                                                 <br></br>
-                                                <div name="contenedor de cada opcion" className="z-10 bg-white divide-y divide-gray-100 rounded-lg shadow w-44 ">
-                                                    <ul className="py-2 text-sm text-gray-700 ">
-
-                                                        {/*Este elemento permite traer el componente TaskDirection que trae todos las casas que crea el usuario*/}
+                                                <div name="contenedor de cada opcion" className="custom-scrollbar flex z-10 bg-white divide-y divide-gray-100 rounded-lg shadow w-44 max-h-60 overflow-y-auto">
+                                                    <ul className="py-2 text-sm text-gray-700">
                                                         {tasks.map(task => (
                                                             <TaskDirection task={task} key={task._id} />
                                                         ))}
-
                                                     </ul>
                                                 </div>
+
+
                                             </>
                                         )}
                                         <br></br>
@@ -333,7 +332,7 @@ function TaskCard({ task }) {
                     {isDetailModalOpen && (
                         <div className="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50">
                             <div className="bg-form rounded-lg shadow-lg p-4 w-full max-w-5xl h-auto overflow-y-hidden">
-                                <div className="max-h-[70vh] overflow-y-auto bg-pink-200">
+                                <div className="max-h-[70vh] custom-scrollbar bg-pink-200">
 
                                     <img src="dog.png" alt="" className="relative top-14  " style={{ width: '500px', height: 'auto' }} />
 

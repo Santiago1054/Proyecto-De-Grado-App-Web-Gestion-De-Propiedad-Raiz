@@ -3,7 +3,7 @@ import mongoose from "mongoose";
 export const connectDB = async () => {
   try {
     await mongoose.connect(
-      "mongodb://mongo:OIYjCnUzKKWXvOmzzTxesjRVdCNmkoeA@autorack.proxy.rlwy.net:58949"
+      "mongodb+srv://Easify:GnaB8p8COEqrDb43@cluster0.djocl.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
     );
     console.log("-> Base de datos conectada");
   } catch (error) {

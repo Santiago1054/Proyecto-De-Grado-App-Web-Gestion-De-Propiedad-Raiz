@@ -1,7 +1,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
+@import url(https://db.onlinewebfonts.com/c/6f647d2fb27f7ad2f727d5286bc1bed1?family=Quotes+Caps+W00+Regular);
 
 body {
   background: linear-gradient(to bottom,#F5F5F5 50%, #dfe9ff 50%);
@@ -20,4 +20,23 @@ iframe {
   transform: translateZ(0); /* Trigger GPU acceleration */
   backface-visibility: hidden; /* Prevent blurring */
   will-change: transform; /* Optimize for better rendering */
+}
+/* Aplicar estilos a un contenedor específico */
+.custom-scrollbar {
+  @apply overflow-y-auto;
+}
+
+/* Estilo del scrollbar para la clase .custom-scrollbar */
+.custom-scrollbar::-webkit-scrollbar {
+  width: 8px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background-color: #0458ea;
+  border-radius: 10px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: #EDF2F7;
+  border-radius: 10px;
 }

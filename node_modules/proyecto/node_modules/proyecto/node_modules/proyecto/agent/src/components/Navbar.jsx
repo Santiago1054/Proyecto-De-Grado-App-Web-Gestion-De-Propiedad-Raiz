@@ -49,7 +49,7 @@ function Navbar() {
                         <li>
                             <Link to='/tasks/new'
                                 className="flex font-sans font-extrabold bg-form shadow-md px-4 py-4 rounded-md text-backgroundColor hover:bg-blue-600 hover:text-white">
-                                Agregar tarjeta
+                                Agregar propiedad
                             </Link>
                         </li>
                         <li>

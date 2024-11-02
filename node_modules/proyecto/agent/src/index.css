@@ -4,14 +4,14 @@
 @import url(https://db.onlinewebfonts.com/c/6f647d2fb27f7ad2f727d5286bc1bed1?family=Quotes+Caps+W00+Regular);
 
 body {
-  background: linear-gradient(to bottom,#F5F5F5 50%, #dfe9ff 50%);
+  
+  background: linear-gradient(to bottom, #f5f5f5 50%, #dfe9ff 50%);
   height: auto; /* Para que cubra toda la pantalla */
   margin: 12;
-  
 
   color: white;
 }
-.background{
+.background {
   background: rgb(0, 0, 0);
   position: absolute;
 }
@@ -37,6 +37,6 @@ iframe {
 }
 
 .custom-scrollbar::-webkit-scrollbar-track {
-  background: #EDF2F7;
+  background: #edf2f7;
   border-radius: 10px;
 }

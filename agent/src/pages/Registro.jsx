@@ -12,7 +12,7 @@ function RegisterPage() {
 
     const { singup, isAuthenticated, errors: registerErrors } = useAuth()
     const navigate = useNavigate()
-    
+
     useEffect(() => {
         if (isAuthenticated) navigate("/tasks")
     }, [isAuthenticated])

@@ -1,18 +1,4 @@
 import Task from "../models/task.model.js";
-//import multer from 'multer';
-//import shortid from 'shortid';
-//import { multerConfig } from '../utils/multerConfig.js';
-
-//const upload = multer(multerConfig).single('image');
-
-/*fileUpload = (req, res, next) => {
-   upload(req, res, function(error) {
-    if (error) {
-        res.json({ message: error});
-    }
-    return next();
-   }) 
-}*/
 
 export const getTasks = async (req, res) => {
   try {

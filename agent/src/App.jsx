@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { HashRouter, Routes, Route } from "react-router-dom";
 import RegisterPage from "./pages/Registro";
 import LoginPage from "./pages/Login";
 import { AuthProvider } from "./context/AuthContext";
@@ -15,7 +15,7 @@ function App() {
     <>
       <AuthProvider>
         <TaskProvider>
-          <BrowserRouter>
+          <HashRouter>
             <div className="flex h-screen">
               {/* Sidebar estático */}
               <TaskFilter />
@@ -45,7 +45,7 @@ function App() {
                 </main>
               </div>
             </div>
-          </BrowserRouter>
+          </HashRouter>
         </TaskProvider>
       </AuthProvider>
     </>

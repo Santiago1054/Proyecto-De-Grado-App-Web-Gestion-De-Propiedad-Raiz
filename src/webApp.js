@@ -7,9 +7,10 @@ import taskRoutes from "./routes/task.routes.js";
 import cors from "cors";
 import path from 'path';
 
+import { dirname } from 'path';
 //import { FRONTEND_URL } from "./config.js";
 
-
+const __dirname = dirname(__filename);
 const app = express();
 
 app.use(

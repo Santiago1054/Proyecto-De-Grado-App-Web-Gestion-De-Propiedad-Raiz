@@ -5,6 +5,7 @@ import cookieParser from "cookie-parser";
 import authRoutes from "./routes/auth.routes.js";
 import taskRoutes from "./routes/task.routes.js";
 import cors from "cors";
+
 //import { FRONTEND_URL } from "./config.js";
 
 
@@ -24,11 +25,19 @@ app.use(cookieParser());
 app.use("/api", authRoutes);
 app.use("/api", taskRoutes);
 
-if (process.env.NODE_ENV === "production") {
+//if (process.env.NODE_ENV === "production") {
  
-  app.use(express.static("agent/dist"));
+  //app.use(express.static("agent/dist"));
 
 
+//}
+if (process.env.NODE_ENV === "production") {
+  app.use(express.static(path.join(__dirname, 'client/build')));
+
+  // Cualquier ruta que no pertenezca a la API debe redirigir a index.html
+  app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, 'client/build', 'index.html'));
+  });
 }
 
 export default app;

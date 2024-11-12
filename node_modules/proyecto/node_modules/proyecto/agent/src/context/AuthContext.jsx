@@ -66,31 +66,36 @@ export const AuthProvider = ({ children }) => {
 
     useEffect(() => {
         async function checkLogin() {
+            setLoading(true); // Añadimos esto para evitar flashes de contenido mientras se verifica
             const cookies = Cookies.get();
-            //console.log(cookies);
+            
             if (!cookies.token) {
                 setIsAuthenticated(false);
                 setUser(null);
                 setLoading(false);
                 return;
             }
+    
             try {
-                const res = await verifyTokenRequest(cookies.token);
-                if (!res.data) {
-                    setIsAuthenticated(false);
-                    setUser(null);
-                } else {
+                const res = await verifyTokenRequest();
+                if (res.status === 200 && res.data) {
                     setIsAuthenticated(true);
                     setUser(res.data);
+                } else {
+                    setIsAuthenticated(false);
+                    setUser(null);
+                    Cookies.remove("token"); // Limpia el token en caso de fallo
                 }
             } catch (error) {
-                console.log(error);
+                console.log("Error verifying token:", error);
                 setIsAuthenticated(false);
                 setUser(null);
+                Cookies.remove("token");
             } finally {
                 setLoading(false);
             }
         }
+    
         checkLogin();
     }, []);
 

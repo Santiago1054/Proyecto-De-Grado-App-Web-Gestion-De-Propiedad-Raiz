@@ -4,6 +4,7 @@ import morgan from "morgan";
 import cookieParser from "cookie-parser";
 import authRoutes from "./routes/auth.routes.js";
 import taskRoutes from "./routes/task.routes.js";
+import path from "path"; // Asegúrate de importar path
 import cors from "cors";
 //import { FRONTEND_URL } from "./config.js";
 
@@ -30,8 +31,7 @@ if (process.env.NODE_ENV === "production") {
 
 
 }
-// Rutas de la API (por ejemplo, prefijadas con /api)
-app.use('/api', require('./routes/api'));  // Asegúrate de prefijar tus rutas API con /api
+
 
 // Servir archivos estáticos del frontend
 app.use(express.static(path.join(__dirname, 'client/build')));

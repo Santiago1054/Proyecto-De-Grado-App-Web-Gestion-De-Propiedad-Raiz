@@ -28,18 +28,13 @@ app.use(cookieParser());
 app.use("/api", authRoutes);
 app.use("/api", taskRoutes);
 
-// Configuración para producción
-if (process.env.NODE_ENV === "production") {
-  // Servir archivos estáticos de React
-  app.use(express.static(path.join(__dirname, "agent/dist")));
+// Middleware para servir archivos estáticos
+if (process.env.NODE_ENV === 'production') {
+  app.use(express.static(path.join(__dirname, 'client/build')));
 
-  // Redirigir todas las demás rutas a index.html para que React las maneje
-  app.get("*", (req, res) => {
-    if (!req.originalUrl.startsWith("/api")) {
-      res.sendFile(path.join(__dirname, "agent/dist", "index.html"));
-    } else {
-      res.status(404).json({ message: "API route not found" });
-    }
+  // Redirecciona cualquier ruta no manejada por la API a index.html
+  app.get('/tasks', (req, res) => {
+    res.sendFile(path.join(__dirname, 'client/build', 'index.html'));
   });
 }
 

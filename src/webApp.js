@@ -30,5 +30,15 @@ if (process.env.NODE_ENV === "production") {
 
 
 }
+// Rutas de la API (por ejemplo, prefijadas con /api)
+app.use('/api', require('./routes/api'));  // Asegúrate de prefijar tus rutas API con /api
+
+// Servir archivos estáticos del frontend
+app.use(express.static(path.join(__dirname, 'client/build')));
+
+// Ruta de redirección para las demás rutas no API, enviándolas a index.html
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, 'client/build', 'https://easifyview.onrender.com'));
+});
 
 export default app;

@@ -5,7 +5,8 @@ import cookieParser from "cookie-parser";
 import authRoutes from "./routes/auth.routes.js";
 import taskRoutes from "./routes/task.routes.js";
 import cors from "cors";
-
+import path from 'path';
+const path = require('path');
 //import { FRONTEND_URL } from "./config.js";
 
 

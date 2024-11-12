@@ -20,7 +20,12 @@ export const register = async (req, res) => {
     const userSaved = await newUser.save();
     const token = await createAccessToken({ id: userSaved._id });
 
-    res.cookie("token", token);
+    //res.cookie("token", token);
+    res.cookie('token', token, {
+      httpsOnly: true,
+      secure: process.env.NODE_ENV === 'production', // Solo en producción
+      sameSite: 'Lax',            // Configuración "Lax" ayuda con sesiones en una sola página
+    });
     res.json({
       id: userSaved._id,
       username: userSaved.username,
@@ -51,7 +56,7 @@ export const login = async (req, res) => {
     res.cookie('token', token, {
       httpsOnly: true,
       secure: process.env.NODE_ENV === 'production', // Solo en producción
-      sameSite: 'None', // Permite que la cookie se envíe en solicitudes cross-site
+      sameSite: 'Lax',            // Configuración "Lax" ayuda con sesiones en una sola página
     });
     res.json({
       id: userFound._id,

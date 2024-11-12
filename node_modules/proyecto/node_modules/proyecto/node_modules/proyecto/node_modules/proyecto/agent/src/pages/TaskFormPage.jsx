@@ -245,7 +245,7 @@ function TaskFormPage() {
                 {/* Botones de acción */}
                 <div className="flex justify-between">
                     <Link to='/tasks' className="bg-red-600 px-5 py-2 rounded-md hover:opacity-80">Volver</Link>
-                    <Link to='/tasks' name="save" className="bg-green-400 text-black px-5 py-2 rounded-md hover:opacity-80">Guardar</Link>
+                    <button name="save" className="bg-green-400 text-black px-5 py-2 rounded-md hover:opacity-80">Guardar</button>
                 </div>
             </form>
 

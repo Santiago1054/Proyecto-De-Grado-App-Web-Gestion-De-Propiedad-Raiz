@@ -32,11 +32,11 @@ app.use("/api", taskRoutes);
 
 //}
 if (process.env.NODE_ENV === "production") {
-  app.use(express.static(path.join(__dirname, 'client/build')));
+  app.use(express.static(path.join(__dirname, 'agent/dist')));
 
   // Cualquier ruta que no pertenezca a la API debe redirigir a index.html
   app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, 'client/build', 'index.html'));
+    res.sendFile(path.join(__dirname, 'agent/dist', 'index.html'));
   });
 }
 

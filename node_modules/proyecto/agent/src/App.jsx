@@ -28,8 +28,6 @@ function App() {
                 {/* Contenido desplazable con todo el ancho y centrado */}
                 <main className="flex-1 custom-scrollbar flex justify-center px-10 w-full py-20 ">
                   <div className="w-full max-w-8xl"> {/* Limitar el ancho máximo para centrar el contenido */}
-                    <Router>
-                    <Switch>
                     <Routes>
                       <Route path="/" element={<HomePage />} />
                       <Route path="/login" element={<LoginPage />} />
@@ -41,8 +39,6 @@ function App() {
                         <Route path="/tasks/:id" element={<TaskFormPage />} />
                       </Route>
                     </Routes>
-                    </Switch>
-                    </Router>
                     <br />
                     <br />
                   </div>

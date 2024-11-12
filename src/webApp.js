@@ -1,46 +1,29 @@
 import express from "express";
 import path from "path";
-import { fileURLToPath } from "url";
-import morgan from "morgan";
-import cookieParser from "cookie-parser";
+import cors from "cors";
 import authRoutes from "./routes/auth.routes.js";
 import taskRoutes from "./routes/task.routes.js";
-import cors from "cors";
 
 const app = express();
+const __dirname = path.resolve();
 
-// Configuración de __dirname en un módulo ES
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
+app.use(cors({
+  origin: "https://easifyview.onrender.com",
+  credentials: true,
+}));
 
-app.use(
-  cors({
-    methods: "GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS",
-    credentials: true,
-    origin: "https://easifyview.onrender.com",
-  })
-);
 app.use(express.json());
-app.use(morgan("dev"));
-app.use(cookieParser());
-
-// Rutas de la API
 app.use("/api", authRoutes);
 app.use("/api", taskRoutes);
 
-// Configuración para producción
 if (process.env.NODE_ENV === "production") {
-  // Servir archivos estáticos de React
-  app.use(express.static(path.join(__dirname, "agent/dist")));
+  app.use(express.static(path.join(__dirname, "client/build")));
 
-  // Redirigir todas las demás rutas a index.html para que React las maneje
+  // Cualquier ruta no manejada por la API redirige a index.html
   app.get("*", (req, res) => {
-    if (!req.originalUrl.startsWith("/api")) {
-      res.sendFile(path.join(__dirname, "agent/dist", "index.html"));
-    } else {
-      res.status(404).json({ message: "API route not found" });
-    }
+    res.sendFile(path.join(__dirname, "client/build", "index.html"));
   });
 }
 
-export default app;
+const PORT = process.env.PORT || 5000;
+app.listen(PORT, () => console.log(`Server running on port ${PORT}`));

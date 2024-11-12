@@ -12,9 +12,9 @@ const app = express();
 
 app.use(
   cors({
-    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
     credentials: true, // Esto permite el envío de cookies\
-    origin: "http://localhost:5173",
+    origin: "https://easifyview.onrender.com",
   })
 );
 app.use(express.json());

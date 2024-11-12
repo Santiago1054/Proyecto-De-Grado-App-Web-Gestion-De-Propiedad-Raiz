@@ -16,7 +16,7 @@ const __dirname = path.dirname(__filename);
 app.use(
   cors({
     methods: "GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS",
-    credentials: true,
+    credentials: 'include',
     origin: "https://easifyview.onrender.com",
   })
 );

@@ -17,7 +17,7 @@ app.use(
   cors({
     methods: "GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS",
     credentials: true,
-    origin: "https://easifyview.onrender.com/api",
+    origin: "https://easifyview.onrender.com/",
   })
 );
 app.use(express.json());

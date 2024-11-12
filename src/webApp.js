@@ -33,7 +33,7 @@ if (process.env.NODE_ENV === 'production') {
   app.use(express.static(path.join(__dirname, 'client/build')));
 
   // Redirecciona cualquier ruta no manejada por la API a index.html
-  app.get('/tasks', (req, res) => {
+  app.get('api/tasks', (req, res) => {
     res.sendFile(path.join(__dirname, 'client/build', 'index.html'));
   });
 }

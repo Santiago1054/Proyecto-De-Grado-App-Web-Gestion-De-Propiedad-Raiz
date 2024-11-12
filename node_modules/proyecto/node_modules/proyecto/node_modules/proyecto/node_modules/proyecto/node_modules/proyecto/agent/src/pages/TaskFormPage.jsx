@@ -299,6 +299,7 @@ function TaskFormPage() {
                     <div>
                         <label className="block mb-2 text-sm font-medium text-gray-900">Imagen</label>
                         <input
+                            id="imagen"
                             type="file"
                             accept="image/*"
                             onChange={handleImageUpload}
@@ -308,6 +309,7 @@ function TaskFormPage() {
                     <div>
                         <label className="block mb-2 text-sm font-medium text-gray-900">Documento</label>
                         <input
+                            id = "doc"
                             type="file"
                             accept="application/pdf"
                             onChange={handleDocUpload}
@@ -317,6 +319,7 @@ function TaskFormPage() {
                     <div>
                         <label className="block mb-2 text-sm font-medium text-gray-900">Certificado</label>
                         <input
+                            id = "certify"
                             type="file"
                             accept="application/pdf"
                             onChange={handleCertifyUpload}

@@ -69,8 +69,7 @@ git clone https://github.com/Santiago1054/MERN-Stack-CRUD-with-JWT.git
 npm i 
 ```
 >or
->
->```sh
+```sh
 npm install 
 ```
 > NOTE!!! If you do not open both terminals separately and in their locations it may cause issues

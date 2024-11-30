@@ -155,7 +155,7 @@ function TaskFormPage() {
 
     return (
         <>
-            <form onSubmit={onSubmit} className="bg-white w-full max-w-7xl p-10 rounded-md border scale-95">
+              <form onSubmit={onSubmit} className='bg-white w-full max-w-7xl p-10 rounded-md border scale-95'>
                 {/* Información de la Casa */}
                 <div className="mb-8">
                     <h2 className="text-lg font-semibold text-gray-800 mb-4">Información de la Casa</h2>
@@ -295,46 +295,30 @@ function TaskFormPage() {
 
                 {/* Archivos */}
                 <div className="mb-8">
-                    <h2 className="text-lg font-semibold text-gray-800 mb-4">Archivos</h2>
-                    <div>
-                        <label className="block mb-2 text-sm font-medium text-gray-900">Imagen</label>
-                        <input
-                            id="imagen"
-                            type="file"
-                            accept="image/*"
-                            onChange={handleImageUpload}
-                            className="block w-full text-sm text-gray-900 bg-gray-50 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500"
-                        />
+                <h2 className="text-lg font-semibold text-gray-800 mb-4">Archivos Adjuntos</h2>
+                    <div className="space-y-6">
+                        <div>
+                            <label htmlFor="imagen" className="block text-sm font-medium text-gray-900">Imagen</label>
+                            <input className="block w-auto text-lg text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50" id="imagen" type="file" onChange={handleImageUpload} />
+                            <input type="image" {...register('imagen')} className='opacity-0' />
+                        </div>
+                        <div>
+                            <label htmlFor="doc" className="block text-sm font-medium text-gray-900">Archivos</label>
+                            <input className="block w-auto text-lg text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50" id="doc" type="file" onChange={handleDocUpload} />
+                            <input type="text" {...register('doc')} className='opacity-0' />
+                        </div>
+                        <div>
+                            <label htmlFor="certify" className="block text-sm font-medium text-gray-900">Certificado de Gas</label>
+                            <input className="block w-auto text-lg text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50" id="certify" type="file" onChange={handleCertifyUpload} />
+                            <input type="text" {...register('certify')} className='opacity-0' />
                     </div>
-                    <div>
-                        <label className="block mb-2 text-sm font-medium text-gray-900">Documento</label>
-                        <input
-                            id = "doc"
-                            type="file"
-                            accept="application/pdf"
-                            onChange={handleDocUpload}
-                            className="block w-full text-sm text-gray-900 bg-gray-50 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500"
-                        />
                     </div>
-                    <div>
-                        <label className="block mb-2 text-sm font-medium text-gray-900">Certificado</label>
-                        <input
-                            id = "certify"
-                            type="file"
-                            accept="application/pdf"
-                            onChange={handleCertifyUpload}
-                            className="block w-full text-sm text-gray-900 bg-gray-50 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500"
-                        />
-                    </div>
+                    
                 </div>
 
-                <div className="mt-6">
-                    <button
-                        type="submit"
-                        className="w-full bg-blue-500 text-white font-semibold text-sm rounded-md py-2.5"
-                    >
-                        {params.id ? 'Actualizar' : 'Crear'} Tarea
-                    </button>
+                <div className="flex justify-between">
+                    <Link to='/tasks' className="bg-red-600 px-5 py-2 rounded-md hover:opacity-80">Volver</Link>
+                    <button name="save" className="bg-green-400 text-black px-5 py-2 rounded-md hover:opacity-80">Guardar</button>
                 </div>
             </form>
         </>

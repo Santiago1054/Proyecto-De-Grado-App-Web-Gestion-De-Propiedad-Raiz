@@ -36,6 +36,7 @@ This is the most common scenario for using JWT. Once the user is logged in, each
 JSON Web Tokens are a good way of securely transmitting information between parties. Because JWTs can be signed—for example, using public/private key pairs—you can be sure the senders are who they say they are. Additionally, as the signature is calculated using the header and the payload, you can also verify that the content hasn't been tampered with.
 
 ## Project preview
+![Screenshot 2024-11-14 111334](https://github.com/user-attachments/assets/8cf481e2-b038-47b1-9c39-e17d0e74db11)
 ![776shots_so](https://github.com/Santiago1054/MERN-Stack-CRUD-with-JWT/assets/170820106/002654a4-9703-41a9-bdec-3393ccf8556d)
 [![Alt text](https://img.youtube.com/vi/9Op2t5Fws1E/0.jpg)](https://www.youtube.com/watch?v=9Op2t5Fws1E)
 [![Alt text](https://img.youtube.com/vi/t5YSqCU819g/0.jpg)](https://www.youtube.com/watch?v=t5YSqCU819g)

@@ -61,12 +61,18 @@ Step-by-step instructions on how to get the development environment running.
 ```sh
 git clone https://github.com/Santiago1054/MERN-Stack-CRUD-with-JWT.git
 ```
-> Step 2 Go to  NPM SCRIPTS
+> Step 2 Open separate terminals (Back-end & Front-end)
 > 
-![Screenshot 2024-07-03 130954](https://github.com/Santiago1054/MERN-Stack-CRUD-with-JWT/assets/170820106/053d246a-018b-47ed-9195-16520b02f5e8)
-> Step 3 Click on install dependencies from package
-> 
-![Screenshot 2024-07-03 131325](https://github.com/Santiago1054/MERN-Stack-CRUD-with-JWT/assets/170820106/168f2afd-3ac7-4563-aa7c-66e2fd886dae)
+
+> Step 3 install dependencies with npm i or npm install for both terminals and for the Front-End terminal you have to install vite.
+```sh
+npm i 
+```
+>or
+>
+>```sh
+npm install 
+```
 > NOTE!!! If you do not open both terminals separately and in their locations it may cause issues
 > 
 > Important information! Back-end it's located in src folder by the other hand, front-end it's located in agent folder
